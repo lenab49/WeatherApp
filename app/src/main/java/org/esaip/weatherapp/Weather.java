@@ -4,8 +4,8 @@ package org.esaip.weatherapp;
  * Custom data holder for weather information
  */
 
-
 public class Weather {
+
     private double latitude;
     private double longitude;
     private double currentTemp;
