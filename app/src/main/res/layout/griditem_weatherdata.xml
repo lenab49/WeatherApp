@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+
+   <!-- <ImageView
+        android:layout_width="88dp"
+        android:layout_height="80dp"
+        android:id="@+id/list_itemWeather_img"/>
+-->
+    <TextView
+    android:text="T°"
+    android:layout_width="160dp"
+    android:layout_height="38dp"
+    android:id="@+id/list_itemWeather_curtemp"
+    android:layout_alignParentTop="true"
+        />
+    <!--android:layout_toRightOf="@+id/list_itemWeather_img"
+    android:layout_toEndOf="@+id/list_itemWeather_img" -->
+    <TextView
+    android:text="des"
+    android:layout_width="160dp"
+    android:layout_height="38dp"
+    android:id="@+id/list_itemWeather_descr"
+        android:layout_below="@+id/list_itemWeather_curtemp"/>
+    <!--android:layout_toRightOf="@+id/list_itemWeather_img"
+    android:layout_toEndOf="@+id/list_itemWeather_img"-->
+
+
+
+</RelativeLayout>

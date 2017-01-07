@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import static org.esaip.weatherapp.R.id.GdCity;
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startDownload() {
         if(isConnectionAvailable()) {
-            GdCit.setVisibility(View.INVISIBLE);
+          //  GdCit.setVisibility(View.INVISIBLE);
             Task = new MyAsyncTask(this);
             //toutes les méthodes vont être appelées
             Task.execute(buildURL("Angers"));
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         Weather weather = null;
         if(formatUsed.equals(JSON_FORMAT)) {
             weather = parseJsonData(response);
+
         }
 
         if(weather!=null) {
@@ -122,7 +124,10 @@ public class MainActivity extends AppCompatActivity {
        // GdCit.setText(weather.getSummary());
         //GdCit.set
         Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
-        GdCit.setVisibility(View.VISIBLE);
+        ArrayList<Weather> listcity=new ArrayList<>();
+        listcity.add(weather);
+        DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
+        GdCit.setAdapter(dataCityAdapter);
     }
     private Weather parseJsonData(String jsonFeed) {
         JsonParser parser = new JsonParser();
