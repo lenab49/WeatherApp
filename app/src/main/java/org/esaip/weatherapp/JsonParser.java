@@ -20,6 +20,7 @@ public class JsonParser {
             double maxTemp = 0.0;
             double minTemp = 0.0;
             String description = null;
+            String ville=null;
 
             JSONObject root = new JSONObject(feed);
 
@@ -42,10 +43,19 @@ public class JsonParser {
                 currentTemp = main.getDouble("temp");
                 maxTemp = main.getDouble("temp_min");
                 minTemp = main.getDouble("temp_max");
+
+            }
+            if(root.has("name")){
+
+                ville=root.getString("name");
+
+
             }
 
 
-            weather = new Weather(latitude, longitude, currentTemp, maxTemp, minTemp, description);
+
+
+            weather = new Weather(latitude, longitude, currentTemp, maxTemp, minTemp, description,ville);
 
         } catch (JSONException e) {
             e.printStackTrace();

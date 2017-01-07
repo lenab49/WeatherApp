@@ -6,7 +6,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -28,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String YOUR_API_KEY = "077a245d87c02f81dc701f309926ef48";
 
-    private static final String XML_FORMAT = "xml";
+
     private static final String JSON_FORMAT = "json";
     private final String formatUsed = JSON_FORMAT;
     private MyAsyncTask Task;
+    private int i=0;
+    private ArrayList<Weather> listcity=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                       .setAction("Action", null).show();
+               // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                 //      .setAction("Action", null).show();
                 startDownload();
 
             }
@@ -123,11 +124,13 @@ public class MainActivity extends AppCompatActivity {
     private void displayWeatherInformation(Weather weather) {
        // GdCit.setText(weather.getSummary());
         //GdCit.set
+
         Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
-        ArrayList<Weather> listcity=new ArrayList<>();
-        listcity.add(weather);
+        listcity.add(i,weather);
+        i++;
         DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
         GdCit.setAdapter(dataCityAdapter);
+
     }
     private Weather parseJsonData(String jsonFeed) {
         JsonParser parser = new JsonParser();

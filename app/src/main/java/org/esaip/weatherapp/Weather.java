@@ -12,15 +12,20 @@ public class Weather {
     private double maxTemp;
     private double minTemp;
     private String description;
+    private String ville;
+
+
 
     public Weather(double latitude, double longitude, double currentTemp,
-                   double maxTemp, double minTemp, String description) {
+                   double maxTemp, double minTemp, String description, String ville) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.currentTemp = currentTemp;
         this.maxTemp = maxTemp;
         this.minTemp = minTemp;
+
         this.description = description;
+        this.ville=ville;
     }
 
     public double getLatitude() {
@@ -41,6 +46,14 @@ public class Weather {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 
     public String getSummary() {

@@ -31,7 +31,7 @@ public class DataCityAdapter extends ArrayAdapter<Weather> {
             view=new View(context);
             view=layoutInflater.inflate(R.layout.griditem_weatherdata,null);
             TextView curtemp=(TextView)view.findViewById(R.id.list_itemWeather_curtemp);
-            curtemp.setText(Double.toString(listWeather.get(pos).getMaxTemp()));
+            curtemp.setText(listWeather.get(pos).getVille());
             TextView description=(TextView)view.findViewById(R.id.list_itemWeather_descr);
             description.setText(listWeather.get(pos).getDescription());
         }else{
