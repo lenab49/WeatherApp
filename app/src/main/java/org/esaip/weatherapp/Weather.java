@@ -13,19 +13,20 @@ public class Weather {
     private double minTemp;
     private String description;
     private String ville;
+    private String icon;
 
 
 
     public Weather(double latitude, double longitude, double currentTemp,
-                   double maxTemp, double minTemp, String description, String ville) {
+                   double maxTemp, double minTemp, String description, String ville,String icon) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.currentTemp = currentTemp;
         this.maxTemp = maxTemp;
         this.minTemp = minTemp;
-
         this.description = description;
         this.ville=ville;
+        this.icon=icon;
     }
 
     public double getLatitude() {
@@ -54,6 +55,13 @@ public class Weather {
 
     public void setVille(String ville) {
         this.ville = ville;
+    }
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getSummary() {

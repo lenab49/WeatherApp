@@ -21,6 +21,7 @@ public class JsonParser {
             double minTemp = 0.0;
             String description = null;
             String ville=null;
+            String icon=null;
 
             JSONObject root = new JSONObject(feed);
 
@@ -35,6 +36,7 @@ public class JsonParser {
                 JSONArray weatherArray = root.getJSONArray("weather");
                 JSONObject weatherObject = weatherArray.getJSONObject(0);
                 description = weatherObject.getString("description");
+                icon=weatherObject.getString("icon");
             }
 
             if(root.has("main")) {
@@ -55,7 +57,7 @@ public class JsonParser {
 
 
 
-            weather = new Weather(latitude, longitude, currentTemp, maxTemp, minTemp, description,ville);
+            weather = new Weather(latitude, longitude, currentTemp, maxTemp, minTemp, description,ville,icon);
 
         } catch (JSONException e) {
             e.printStackTrace();

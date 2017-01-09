@@ -114,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
             displayWeatherInformation(weather);
         }
 
-        Toast.makeText(this, "Response received.", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Response received.", Toast.LENGTH_SHORT).show();
+        Log.e(TAG,"Response received");
        /* mStartDownloadButton.setEnabled(true);
         mProgressBar.setVisibility(View.INVISIBLE);
         mLoadingTextView.setVisibility(View.INVISIBLE);
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         //GdCit.set
 
         Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
-        listcity.add(i,weather);
+            listcity.add(i, weather);
         i++;
         DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
         GdCit.setAdapter(dataCityAdapter);
