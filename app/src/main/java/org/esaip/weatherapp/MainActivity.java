@@ -1,6 +1,7 @@
 package org.esaip.weatherapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -15,9 +16,14 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.esaip.weatherapp.R.id.GdCity;
 
@@ -31,8 +37,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String JSON_FORMAT = "json";
     private final String formatUsed = JSON_FORMAT;
     private MyAsyncTask Task;
-    private int i=0;
+    private int i;
     private ArrayList<Weather> listcity=new ArrayList<>();
+    private Weather weather;
+    private ArrayList<Weather> slistcity=new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +58,26 @@ public class MainActivity extends AppCompatActivity {
                  //      .setAction("Action", null).show();
                 startDownload();
 
+
             }
         });
+
     }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        saveData();
+    }
+    @Override
+    protected void onResume() {
+        //onResume permet de retourner a l'ecran et d'ppliquer les préférences au démarrage et lorsqu'on redemarre activité
+        super.onResume();
+        if(loadData().size()!=0) {
+            DataCityAdapter dataCityAdapter = new DataCityAdapter(this, loadData());
+            GdCit.setAdapter(dataCityAdapter);
+        }
+    }
+
     private URL buildURL(String frenchCity) {
         final String BASE_URL =
                 "http://api.openweathermap.org/data/2.5/weather?";
@@ -104,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     public void responseReceived(String response) {
         Log.i(TAG, "Response: " + response);
 
-        Weather weather = null;
+        weather = null;
         if(formatUsed.equals(JSON_FORMAT)) {
             weather = parseJsonData(response);
 
@@ -126,8 +152,9 @@ public class MainActivity extends AppCompatActivity {
        // GdCit.setText(weather.getSummary());
         //GdCit.set
 
-        Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
-            listcity.add(i, weather);
+        //Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
+        listcity.add(i, weather);
+        Toast.makeText(this,"i="+i,Toast.LENGTH_SHORT).show();
         i++;
         DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
         GdCit.setAdapter(dataCityAdapter);
@@ -157,5 +184,32 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    /*
+    but : sauvegarder les données de l'application
+     */
+
+    private void saveData() {
+
+        SharedPreferences sp=this.getSharedPreferences("Valuestore",Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = sp.edit();
+        Gson gson = new Gson();
+        prefsEditor.putInt("incre",i);
+        String json = gson.toJson(listcity); // myObject - instance of MyObject
+        prefsEditor.putString("MyObject", json);
+        Toast.makeText(this,"Enregistement",Toast.LENGTH_SHORT).show();
+        prefsEditor.commit();
+    }
+    private ArrayList<Weather> loadData(){
+        SharedPreferences sp =getSharedPreferences("Valuestore",Context.MODE_PRIVATE);
+
+        Gson gson = new Gson();
+        String json = sp.getString("MyObject", "");
+        Type type = new TypeToken<List<Weather>>(){}.getType();
+        ArrayList<Weather> slistcity= gson.fromJson(json, type);
+        int i=sp.getInt("incre",0);
+
+        return slistcity;
+
     }
 }
