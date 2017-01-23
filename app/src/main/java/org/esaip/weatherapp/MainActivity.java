@@ -37,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String JSON_FORMAT = "json";
     private final String formatUsed = JSON_FORMAT;
     private MyAsyncTask Task;
-    private int i;
+    private int i=0;
     private ArrayList<Weather> listcity=new ArrayList<>();
     private Weather weather;
     private ArrayList<Weather> slistcity=new ArrayList<>();
+    private String Ville=null;
 
 
     @Override
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                  //      .setAction("Action", null).show();
-                startDownload();
+                startDownload("Nantes");
 
 
             }
@@ -108,12 +109,12 @@ public class MainActivity extends AppCompatActivity {
         return url;
     }
 
-    public void startDownload() {
+    public void startDownload(String city) {
         if(isConnectionAvailable()) {
           //  GdCit.setVisibility(View.INVISIBLE);
             Task = new MyAsyncTask(this);
             //toutes les méthodes vont être appelées
-            Task.execute(buildURL("Angers"));
+            Task.execute(buildURL(city));
         } else {
             Toast.makeText(this, "No connection available. Request canceled", Toast.LENGTH_SHORT).show();
         }
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayWeatherInformation(Weather weather) {
        // GdCit.setText(weather.getSummary());
         //GdCit.set
-        //Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
         listcity.add(i, weather);
         i++;
         DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
@@ -167,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
     }
 
     @Override
@@ -174,14 +176,39 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+                case R.id.action_settings:
+                    return true;
+                case R.id.action_refresh:
+                    refreshData();
+                    return true;
+            case R.id.action_clearall:
+                clear();
+                return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+
     }
+    private void refreshData(){
+
+
+        DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
+        GdCit.setAdapter(dataCityAdapter);
+        dataCityAdapter.clear();
+        for(int p=0;p<listcity.size();p++){
+           Ville=(listcity.get(p)).getVille();
+            startDownload(Ville);
+        }
+
+    }
+    private void clear(){
+        listcity.clear();
+        DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
+        GdCit.setAdapter(dataCityAdapter);
+    }
+
     /*
     but : sauvegarder les données de l'application
      */
