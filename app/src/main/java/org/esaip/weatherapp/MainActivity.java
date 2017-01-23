@@ -1,6 +1,7 @@
 package org.esaip.weatherapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Weather> slistcity=new ArrayList<>();
     private String Ville=null;
 
+    int resultCity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +60,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                  //      .setAction("Action", null).show();
+                //
+                Intent intent=new Intent(getApplicationContext(),AddCity.class);
+                startActivityForResult(intent, resultCity);
                 startDownload("Nantes");
-
-
             }
         });
 
