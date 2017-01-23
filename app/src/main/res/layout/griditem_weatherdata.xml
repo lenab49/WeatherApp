@@ -14,7 +14,7 @@
     android:layout_toEndOf="@+id/list_itemWeather_img" -->
 
     <TextView
-    android:text="T°"
+
     android:layout_width="160dp"
     android:layout_height="38dp"
         android:textStyle="bold"
@@ -32,6 +32,16 @@
         android:layout_below="@+id/list_itemWeather_city"
         android:layout_toRightOf="@+id/list_itemWeather_img"
         android:layout_toEndOf="@+id/list_itemWeather_img" />
+
+    <TextView
+
+        android:layout_width="160dp"
+        android:layout_height="38dp"
+        android:id="@+id/list_itemWeather_currenttemp"
+       android:layout_below="@+id/list_itemWeather_descr"
+        android:layout_toRightOf="@+id/list_itemWeather_img"
+        android:layout_toEndOf="@+id/list_itemWeather_img" />
+
     <!--android:layout_toRightOf="@+id/list_itemWeather_img"
     android:layout_toEndOf="@+id/list_itemWeather_img"-->
 
