@@ -151,14 +151,11 @@ public class MainActivity extends AppCompatActivity {
     private void displayWeatherInformation(Weather weather) {
        // GdCit.setText(weather.getSummary());
         //GdCit.set
-
         //Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
         listcity.add(i, weather);
-        Toast.makeText(this,"i="+i,Toast.LENGTH_SHORT).show();
         i++;
         DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
         GdCit.setAdapter(dataCityAdapter);
-
     }
     private Weather parseJsonData(String jsonFeed) {
         JsonParser parser = new JsonParser();
@@ -194,7 +191,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp=this.getSharedPreferences("Valuestore",Context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = sp.edit();
         Gson gson = new Gson();
-        prefsEditor.putInt("incre",i);
         String json = gson.toJson(listcity); // myObject - instance of MyObject
         prefsEditor.putString("MyObject", json);
         Toast.makeText(this,"Enregistement",Toast.LENGTH_SHORT).show();
@@ -207,8 +203,7 @@ public class MainActivity extends AppCompatActivity {
         String json = sp.getString("MyObject", "");
         Type type = new TypeToken<List<Weather>>(){}.getType();
         ArrayList<Weather> slistcity= gson.fromJson(json, type);
-        int i=sp.getInt("incre",0);
-
+        listcity=slistcity;
         return slistcity;
 
     }
