@@ -1,6 +1,7 @@
 package org.esaip.weatherapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean refresh;
 
-
+    private static final String VALUES = "org.esaip.myfirstapplication.data.VALUES";
+    private static int requestCode=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -81,12 +83,31 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                  //      .setAction("Action", null).show();
-                setRefresh(false);
-                startDownload("Nantes");
+                Intent intent=new Intent(MainActivity.this,TestDifferentVille.class);
+                startActivityForResult(intent, requestCode);
+
+
+
+               //
 
 
             }
         });
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode,int resultcode,Intent data){
+        super.onActivityResult(requestCode,resultcode,data);
+        if(requestCode==1){
+            String whatYouSent =  data.getStringExtra("city");
+            Toast.makeText(this,"Valeur recup="+whatYouSent,Toast.LENGTH_SHORT).show();
+            setRefresh(false);
+            startDownload(whatYouSent);
+
+        }
+        else {
+            Toast.makeText(this,"RequestCode="+requestCode,Toast.LENGTH_SHORT).show();
+        }
 
     }
     @Override
@@ -177,20 +198,24 @@ public class MainActivity extends AppCompatActivity {
         //GdCit.set
       //  Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
        // listcity.add(i, weather);
-        //Toast.makeText(this,"I= ="+getI(),Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this,"bool"+isRefresh(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"I= ="+getI(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"bool"+isRefresh(),Toast.LENGTH_SHORT).show();
 
         if (isRefresh() == true) {
-                listcity.set(getI(), weather);
-                DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
-                GdCit.setAdapter(dataCityAdapter);
-            } else {
+            for (int d = 0; d <= getI(); d++) {
+                listcity.set(d, weather);
+                Toast.makeText(this, "d=" + d, Toast.LENGTH_SHORT).show();
+            }
+            DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
+            GdCit.setAdapter(dataCityAdapter);
+        }
+            else {
                 listcity.add(i, weather);
                 DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
                 GdCit.setAdapter(dataCityAdapter);
                 setI(getI()+1);
             }
-        //Toast.makeText(this,"after dis i="+getI(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"after dis i="+getI(),Toast.LENGTH_SHORT).show();
 
     }
     private Weather parseJsonData(String jsonFeed) {
@@ -229,13 +254,16 @@ public class MainActivity extends AppCompatActivity {
     }
     private void refreshData(){
         setRefresh(true);
+
         if(listcity.size()!=0) {
-           // Toast.makeText(this,"size list="+listcity.size(),Toast.LENGTH_SHORT).show();
-            for (int p = 0; p < listcity.size(); p++) {
+           Toast.makeText(this,"size list="+listcity.size(),Toast.LENGTH_SHORT).show();
+           for (int p = 0; p < listcity.size(); p++) {
                 setI(p);
-                String Ville = (listcity.get(p)).getVille();
+                String Ville = (listcity.get(0)).getVille();
                 startDownload(Ville);
+               Toast.makeText(this,"Ville="+listcity.get(p).getVille(),Toast.LENGTH_SHORT).show();
             }
+
         }
     }
     private void clear(){
