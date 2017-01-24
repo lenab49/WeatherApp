@@ -15,12 +15,24 @@ import java.util.ArrayList;
  */
 
 public class DataCityAdapter extends ArrayAdapter<Weather> {
-    private ArrayList<Weather> listWeather=new ArrayList<>();
-    private Context context;
-   public DataCityAdapter(Context context,ArrayList<Weather>  lWeather){
-      super(context,-1,lWeather);
+
+ // private ArrayList<Weather> listWeather=new ArrayList<>();
+    ArrayList<Weather> listWeather;
+    Context context;
+
+  //
+    // public DataCityAdapter(Context context,ArrayList<Weather>  lWeather){
+     public DataCityAdapter(Context context,ArrayList<Weather> objects){
+    //super(context,-1,lWeather);
+         super(context,-1,objects);
+         //super(context,-1,listWeather);
         this.context=context;
-     listWeather=new ArrayList<Weather>(lWeather);
+         listWeather=objects;
+
+
+      // this.listWeather=listWeather;
+
+
    }
     @Override
     public View getView(int pos, View convertView, ViewGroup parent){
@@ -111,8 +123,15 @@ public class DataCityAdapter extends ArrayAdapter<Weather> {
     }
 
     @Override
-    public int getCount(){return listWeather.size();
+    public int getCount(){
+       // if(listWeather.size() == 0){
+        if(listWeather.size()==0){
+            return 0;
+        }else{
+            return listWeather.size();
+        }
     }
+
     @Override
     public long getItemId(int position){
         return 0;

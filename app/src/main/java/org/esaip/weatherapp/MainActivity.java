@@ -25,7 +25,6 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.esaip.weatherapp.R.id.GdCity;
 
@@ -39,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String JSON_FORMAT = "json";
     private final String formatUsed = JSON_FORMAT;
     private MyAsyncTask Task;
-    private int i;
-
+    private int i=0;
+    private int p=0;
     public int getI() {
         return i;
     }
@@ -100,20 +99,20 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode,resultcode,data);
         if(requestCode==1){
             String whatYouSent =  data.getStringExtra("city");
-            Toast.makeText(this,"Valeur recup="+whatYouSent,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"Valeur recup="+whatYouSent,Toast.LENGTH_SHORT).show();
             setRefresh(false);
             startDownload(whatYouSent);
 
         }
         else {
-            Toast.makeText(this,"RequestCode="+requestCode,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"RequestCode="+requestCode,Toast.LENGTH_SHORT).show();
         }
 
     }
     @Override
     protected void onStop(){
         super.onStop();
-        Toast.makeText(this,"SAVING ...",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"SAVING ...",Toast.LENGTH_SHORT).show();
         saveData();
     }
     @Override
@@ -160,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             //toutes les méthodes vont être appelées
             Task.execute(buildURL(city));
         } else {
-            Toast.makeText(this, "No connection available. Request canceled", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No connection available. Request canceled", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -194,26 +193,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayWeatherInformation(Weather weather) {
-       // GdCit.setText(weather.getSummary());
+        //GdCit.setText(weather.getSummary());
         //GdCit.set
-      //  Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
        // listcity.add(i, weather);
-        Toast.makeText(this,"I= ="+getI(),Toast.LENGTH_SHORT).show();
-        Toast.makeText(this,"bool"+isRefresh(),Toast.LENGTH_SHORT).show();
 
+        //Toast.makeText(this,"bool"+isRefresh(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Valeur I"+getI(),Toast.LENGTH_SHORT).show();
+        //for(p=0;p<listcity.size();p++) {
+        //Toast.makeText(this, "Ville=" + listcity.get(p).getVille(), Toast.LENGTH_SHORT).show();
+        //}
         if (isRefresh() == true) {
            // for (int d = 0; d <= getI(); d++) {
+
                 listcity.set(getI(), weather);
-                Toast.makeText(this, "d=" + d, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(this, "d=" + d, Toast.LENGTH_SHORT).show();
             //}
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
             GdCit.setAdapter(dataCityAdapter);
+
         }
             else {
-                listcity.add(i, weather);
+                listcity.add(0, weather);
                 DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
                 GdCit.setAdapter(dataCityAdapter);
                 setI(getI()+1);
+
             }
         Toast.makeText(this,"after dis i="+getI(),Toast.LENGTH_SHORT).show();
 
@@ -228,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-
     }
 
     @Override
@@ -242,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.action_refresh:
                     refreshData();
+                    Toast.makeText(this,"SAving i= "+i,Toast.LENGTH_SHORT).show();
 
                     return true;
             case R.id.action_clearall:
@@ -256,10 +261,10 @@ public class MainActivity extends AppCompatActivity {
         setRefresh(true);
 
         if(listcity.size()!=0) {
-           Toast.makeText(this,"size list="+listcity.size(),Toast.LENGTH_SHORT).show();
-           for (int p = 0; p < listcity.size(); p++) {
+           //Toast.makeText(this,"size list="+listcity.size(),Toast.LENGTH_SHORT).show();
+           for (p = 0; p < listcity.size(); p++) {
                 setI(p);
-                String Ville = (listcity.get(0)).getVille();
+                String Ville = (listcity.get(p)).getVille();
                 startDownload(Ville);
                Toast.makeText(this,"Ville="+listcity.get(p).getVille(),Toast.LENGTH_SHORT).show();
             }
@@ -270,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
         setI(0);
         listcity.clear();
         DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
-        dataCityAdapter.clear();
+      //  dataCityAdapter.clear();
         GdCit.setAdapter(dataCityAdapter);
     }
     /*
@@ -281,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
        //comment SharedPreferences sp=this.getSharedPreferences("Valuestore",Context.MODE_PRIVATE);
         SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(this);
         //comment SharedPreferences.Editor prefsEditor = sp.edit();
-        SharedPreferences.Editor editor=sp.edit();
+       SharedPreferences.Editor editor=sp.edit();
         Gson gson = new Gson();
         String json = gson.toJson(listcity); // myObject - instance of MyObject
         //comment prefsEditor.putString("MyObject", json);
@@ -292,18 +297,21 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
         // comment prefsEditor.commit();
     }
-    private void loadData(){
+    private void loadData() {
 
-        SharedPreferences defaultSharedPref=PreferenceManager.getDefaultSharedPreferences(this);
-        Gson gson=new Gson();
-        String json=defaultSharedPref.getString("MyObject","");
-        Type type = new TypeToken<List<Weather>>(){}.getType();
-        ArrayList<Weather> slistcity= gson.fromJson(json, type);
-        listcity=slistcity;
-        setI(defaultSharedPref.getInt("index",0));
-       // Toast.makeText(this,"res I="+i,Toast.LENGTH_SHORT).show();
-        DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
-        GdCit.setAdapter(dataCityAdapter);
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        String json = defaultSharedPref.getString("MyObject", null);
+        Type type = new TypeToken<ArrayList<Weather>>(){}.getType();
+        slistcity = gson.fromJson(json, type);
+       listcity = slistcity;
+        Toast.makeText(this,"Value 0="+listcity.size(),Toast.LENGTH_SHORT).show();
+        setI(defaultSharedPref.getInt("index", 0));
+        Toast.makeText(this,"I="+getI(),Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(this, "res I=" + i, Toast.LENGTH_SHORT).show();
+       // if(slistcity.size()!=0) {
+           DataCityAdapter dataCityAdapter = new DataCityAdapter(this, slistcity);
+            GdCit.setAdapter(dataCityAdapter);
+
     }
-
 }
