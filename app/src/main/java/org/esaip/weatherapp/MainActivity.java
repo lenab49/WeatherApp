@@ -18,13 +18,10 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.esaip.weatherapp.R.id.GdCity;
 
@@ -34,11 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String YOUR_API_KEY = "077a245d87c02f81dc701f309926ef48";
 
-
     private static final String JSON_FORMAT = "json";
     private final String formatUsed = JSON_FORMAT;
     private MyAsyncTask Task;
-    private int i=0;
+    private int i;
     private ArrayList<Weather> listcity=new ArrayList<>();
     private Weather weather;
     private ArrayList<Weather> slistcity=new ArrayList<>();
@@ -46,9 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
     private static int RESULT_CODE;
 
+    public int getI(){
+        return i;
+    }
+
+    public void setI(int m_i){
+        i = m_i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -62,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, RESULT_CODE);
             }
         });
-
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -76,14 +79,15 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         saveData();
     }
+
     @Override
     protected void onResume() {
         //onResume permet de retourner a l'ecran et d'ppliquer les préférences au démarrage et lorsqu'on redemarre activité
         super.onResume();
-        if(loadData().size()!=0) {
+       /* if(loadData().size()!=0) {
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, loadData());
             GdCit.setAdapter(dataCityAdapter);
-        }
+        }*/
     }
 
     private URL buildURL(String frenchCity) {
@@ -112,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             Log.e(TAG, "Malformed URL");
         }
-
         return url;
     }
 
@@ -141,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
         weather = null;
         if(formatUsed.equals(JSON_FORMAT)) {
             weather = parseJsonData(response);
-
         }
 
         if(weather!=null) {
@@ -175,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-
     }
 
     @Override
@@ -227,10 +228,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor prefsEditor = sp.edit();
         Gson gson = new Gson();
         String json = gson.toJson(listcity); // myObject - instance of MyObject
+        Log.e(TAG, json);
         prefsEditor.putString("MyObject", json);
-        Toast.makeText(this,"Enregistement",Toast.LENGTH_SHORT).show();
-        prefsEditor.commit();
+        //Toast.makeText(this,"Enregistement",Toast.LENGTH_SHORT).show();
+        //prefsEditor.commit();
     }
+    /*
     private ArrayList<Weather> loadData(){
         SharedPreferences sp =getSharedPreferences("Valuestore",Context.MODE_PRIVATE);
 
@@ -240,6 +243,5 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Weather> slistcity= gson.fromJson(json, type);
         listcity=slistcity;
         return slistcity;
-
-    }
+    }*/
 }
