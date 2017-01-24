@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     private void clear(){
         listcity.clear();
         DataCityAdapter dataCityAdapter=new DataCityAdapter(this,listcity);
