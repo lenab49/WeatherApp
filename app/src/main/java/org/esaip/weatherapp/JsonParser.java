@@ -65,4 +65,35 @@ public class JsonParser {
 
         return weather;
     }
+    public Weather SaveWeather(JSONObject jobj){
+        Weather weather=null;
+        double latitude = 0.0;
+        double longitude = 0.0;
+        double currentTemp = 0.0;
+        double maxTemp = 0.0;
+        double minTemp = 0.0;
+        String description = null;
+        String ville=null;
+        String icon=null;
+
+        try{
+            latitude = jobj.getDouble("latitude");
+            longitude = jobj.getDouble("latitude");
+            currentTemp=jobj.getDouble("currentTemp");
+            maxTemp=jobj.getDouble("maxTemp");
+            minTemp=jobj.getDouble("minTemp");
+            description=jobj.getString("description");
+            ville=jobj.getString("ville");
+            icon=jobj.getString("icon");
+
+
+
+
+            weather = new Weather(latitude, longitude, currentTemp, maxTemp, minTemp, description,ville,icon);
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+        return weather;
+        }
 }
