@@ -45,6 +45,14 @@ public class Weather {
         return minTemp;
     }
 
+    public double getCurrentTemp() {
+        return currentTemp;
+    }
+
+    public void setCurrentTemp(double currentTemp) {
+        this.currentTemp = currentTemp;
+    }
+
     public String getDescription() {
         return description;
     }

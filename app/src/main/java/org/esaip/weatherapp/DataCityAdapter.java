@@ -15,12 +15,24 @@ import java.util.ArrayList;
  */
 
 public class DataCityAdapter extends ArrayAdapter<Weather> {
-    private ArrayList<Weather> listWeather=new ArrayList<>();
-    private Context context;
-   public DataCityAdapter(Context context,ArrayList<Weather>  lWeather){
-      super(context,-1,lWeather);
+
+ // private ArrayList<Weather> listWeather=new ArrayList<>();
+    ArrayList<Weather> listWeather;
+    Context context;
+
+  //
+    // public DataCityAdapter(Context context,ArrayList<Weather>  lWeather){
+     public DataCityAdapter(Context context,ArrayList<Weather> objects){
+    //super(context,-1,lWeather);
+         super(context,-1,objects);
+         //super(context,-1,listWeather);
         this.context=context;
-     listWeather=new ArrayList<Weather>(lWeather);
+         listWeather=objects;
+
+
+      // this.listWeather=listWeather;
+
+
    }
     @Override
     public View getView(int pos, View convertView, ViewGroup parent){
@@ -31,10 +43,12 @@ public class DataCityAdapter extends ArrayAdapter<Weather> {
         if(convertView==null){
             view=new View(context);
             view=layoutInflater.inflate(R.layout.griditem_weatherdata,null);
-            TextView curtemp=(TextView)view.findViewById(R.id.list_itemWeather_city);
-            curtemp.setText(listWeather.get(pos).getVille());
+            TextView cityn=(TextView)view.findViewById(R.id.list_itemWeather_city);
+            cityn.setText(listWeather.get(pos).getVille());
             TextView description=(TextView)view.findViewById(R.id.list_itemWeather_descr);
             description.setText(listWeather.get(pos).getDescription());
+            TextView currtemp=(TextView)view.findViewById(R.id.list_itemWeather_currenttemp);
+            currtemp.setText(Double.toString(listWeather.get(pos).getCurrentTemp())+"°C");
 
             ImageView logow=(ImageView)view.findViewById(R.id.list_itemWeather_img);
             String icon=listWeather.get(pos).getIcon();
@@ -109,8 +123,15 @@ public class DataCityAdapter extends ArrayAdapter<Weather> {
     }
 
     @Override
-    public int getCount(){return listWeather.size();
+    public int getCount(){
+       // if(listWeather.size() == 0){
+        if(listWeather.size()==0){
+            return 0;
+        }else{
+            return listWeather.size();
+        }
     }
+
     @Override
     public long getItemId(int position){
         return 0;
