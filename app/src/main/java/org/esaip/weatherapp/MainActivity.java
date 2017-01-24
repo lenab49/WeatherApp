@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Weather> slistcity=new ArrayList<>();
     private String Ville=null;
 
-    int resultCity;
+    private static int RESULT_CODE;
 
 
     @Override
@@ -62,12 +62,18 @@ public class MainActivity extends AppCompatActivity {
                  //      .setAction("Action", null).show();
                 //
                 Intent intent=new Intent(getApplicationContext(),AddCity.class);
-                startActivityForResult(intent, resultCity);
-                startDownload("Nantes");
+                startActivityForResult(intent, RESULT_CODE);
             }
         });
 
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String returnCity = data.getStringExtra("city");
+        startDownload(returnCity);
+    }
+
     @Override
     protected void onStop(){
         super.onStop();
