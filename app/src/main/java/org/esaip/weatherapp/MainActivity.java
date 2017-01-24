@@ -202,10 +202,10 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this,"bool"+isRefresh(),Toast.LENGTH_SHORT).show();
 
         if (isRefresh() == true) {
-            for (int d = 0; d <= getI(); d++) {
-                listcity.set(d, weather);
+           // for (int d = 0; d <= getI(); d++) {
+                listcity.set(getI(), weather);
                 Toast.makeText(this, "d=" + d, Toast.LENGTH_SHORT).show();
-            }
+            //}
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
             GdCit.setAdapter(dataCityAdapter);
         }
