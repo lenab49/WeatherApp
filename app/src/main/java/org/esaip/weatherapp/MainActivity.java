@@ -26,7 +26,6 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.esaip.weatherapp.R.id.GdCity;
 
@@ -86,12 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, requestCode);
             }
         });
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        String returnCity = data.getStringExtra("city");
-        startDownload(returnCity);
     }
 
     @Override
@@ -331,5 +324,5 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG,"Valeur i= "+getI());
 
     }
-    
+
 }
