@@ -45,6 +45,7 @@
             android:label="@string/title_activity_add_cityb_maps"></activity>
         <activity android:name=".DetailWeather"></activity>
         <activity android:name=".TestDifferentVille"></activity>
+
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String JSON_FORMAT = "json";
     private final String formatUsed = JSON_FORMAT;
+
     private MyAsyncTask Task;
 
     private int i = 0;
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         this.i = i;
     }
 
-    private ArrayList<Weather> listcity = new ArrayList<>();
+    public ArrayList<Weather> listcity = new ArrayList<>();
     private Weather weather;
     private ArrayList<Weather> slistcity = new ArrayList<>();
     private String Ville = null;
@@ -85,7 +87,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, requestCode);
             }
         });
+        GdCit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "Click ! "+position);
+                for(int d=0;d<listcity.size();d++){
+                    Singleton singleton=Singleton.getInstance();
+                    singleton.setData(listcity.get(d));
+                }
+                Intent intent = new Intent(MainActivity.this, DetailWeather.class);
+                Bundle b = new Bundle();
+                b.putInt("key", position);
+                intent.putExtras(b); //Put your id to your next Intent
+                startActivity(intent);
+                finish();
+            }
+
+            ;
+
+        });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultcode, Intent data) {
@@ -101,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     @Override
     protected void onStop() {
@@ -125,17 +149,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     private URL buildURL(String frenchCity) {
+        Log.e(TAG,"Valeur lang"+getString(R.string.lang));
         final String BASE_URL =
                 "http://api.openweathermap.org/data/2.5/weather?";
         final String QUERY_PARAM = "q";
         final String FORMAT_PARAM = "mode";
         final String UNITS_PARAM = "units";
         final String APP_ID = "APPID";
+        final String LANG="lang";
 
         String format = formatUsed; //Either "xml" or "json"
         String units = "metric";
-
+        String lang=getString(R.string.lang);
         Uri uri = Uri.parse(BASE_URL).buildUpon()
+                .appendQueryParameter(LANG,lang)
                 .appendQueryParameter(QUERY_PARAM, frenchCity + ",fr")
                 .appendQueryParameter(FORMAT_PARAM, format)
                 .appendQueryParameter(UNITS_PARAM, units)
@@ -211,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
             //}
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
             GdCit.setAdapter(dataCityAdapter);
+
 
         } else {
             listcity.add(getI(), weather);
