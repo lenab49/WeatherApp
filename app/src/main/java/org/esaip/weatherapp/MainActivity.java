@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String JSON_FORMAT = "json";
     private final String formatUsed = JSON_FORMAT;
+
     private MyAsyncTask Task;
 
     private int i = 0;
@@ -125,17 +126,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     private URL buildURL(String frenchCity) {
+        Log.e(TAG,"Valeur lang"+getString(R.string.lang));
         final String BASE_URL =
                 "http://api.openweathermap.org/data/2.5/weather?";
         final String QUERY_PARAM = "q";
         final String FORMAT_PARAM = "mode";
         final String UNITS_PARAM = "units";
         final String APP_ID = "APPID";
+        final String LANG="lang";
 
         String format = formatUsed; //Either "xml" or "json"
         String units = "metric";
-
+        String lang=getString(R.string.lang);
         Uri uri = Uri.parse(BASE_URL).buildUpon()
+                .appendQueryParameter(LANG,lang)
                 .appendQueryParameter(QUERY_PARAM, frenchCity + ",fr")
                 .appendQueryParameter(FORMAT_PARAM, format)
                 .appendQueryParameter(UNITS_PARAM, units)
@@ -280,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
     private void clear() {
         setI(0);
         listcity.clear();
+        slistcity.clear();
         DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
         //  dataCityAdapter.clear();
         GdCit.setAdapter(dataCityAdapter);
