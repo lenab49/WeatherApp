@@ -11,7 +11,7 @@
     tools:context="org.esaip.weatherapp.DetailWeather">
 
     <TextView
-        android:text="19:10"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textSunRise"
@@ -21,7 +21,7 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="Max : 20°C"
+        android:text="Max :"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textTempMax"
@@ -31,7 +31,7 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="Nuageux"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textDescription"
@@ -40,7 +40,7 @@
         android:layout_marginTop="124dp" />
 
     <TextView
-        android:text="Min : 10°C"
+        android:text="Min :"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textTempMin"
@@ -50,7 +50,7 @@
         android:layout_marginTop="22dp" />
 
     <TextView
-        android:text="8:10"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textSunSet"
@@ -75,4 +75,12 @@
         android:id="@+id/textTemp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height= "match_parent"
+        android:id="@+id/imgicon"
+        android:layout_toRightOf="@+id/textTemp"
+        android:layout_alignBottom="@+id/textDescription"
+        android:layout_below="@+id/textTemp" />
 </RelativeLayout>

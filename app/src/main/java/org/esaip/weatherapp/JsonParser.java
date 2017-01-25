@@ -19,9 +19,12 @@ public class JsonParser {
             double currentTemp = 0.0;
             double maxTemp = 0.0;
             double minTemp = 0.0;
+            long sunset=0;
+            long sunrise=0;
             String description = null;
             String ville=null;
             String icon=null;
+
 
             JSONObject root = new JSONObject(feed);
 
@@ -30,6 +33,11 @@ public class JsonParser {
 
                 longitude = coord.getDouble("lon");
                 latitude = coord.getDouble("lat");
+            }
+            if(root.has("sys")){
+                JSONObject sys = root.getJSONObject("sys");
+                sunset=sys.getLong("sunset");
+                sunrise=sys.getLong("sunrise");
             }
 
             if(root.has("weather")) {
@@ -57,7 +65,7 @@ public class JsonParser {
 
 
 
-            weather = new Weather(latitude, longitude, currentTemp, maxTemp, minTemp, description,ville,icon);
+            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -70,6 +78,8 @@ public class JsonParser {
         double latitude = 0.0;
         double longitude = 0.0;
         double currentTemp = 0.0;
+        long sunset=0;
+        long sunrise=0;
         double maxTemp = 0.0;
         double minTemp = 0.0;
         String description = null;
@@ -79,6 +89,8 @@ public class JsonParser {
         try{
             latitude = jobj.getDouble("latitude");
             longitude = jobj.getDouble("latitude");
+            sunset=jobj.getLong("sunset");
+            sunrise=jobj.getLong("sunrise");
             currentTemp=jobj.getDouble("currentTemp");
             maxTemp=jobj.getDouble("maxTemp");
             minTemp=jobj.getDouble("minTemp");
@@ -89,7 +101,7 @@ public class JsonParser {
 
 
 
-            weather = new Weather(latitude, longitude, currentTemp, maxTemp, minTemp, description,ville,icon);
+            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon);
         }
         catch (JSONException e){
             e.printStackTrace();

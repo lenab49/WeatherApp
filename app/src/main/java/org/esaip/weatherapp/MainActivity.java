@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private URL buildURL(String frenchCity) {
-        Log.e(TAG,"Valeur lang"+getString(R.string.lang));
         final String BASE_URL =
                 "http://api.openweathermap.org/data/2.5/weather?";
         final String QUERY_PARAM = "q";
