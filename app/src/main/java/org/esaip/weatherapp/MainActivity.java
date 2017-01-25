@@ -115,6 +115,12 @@ public class MainActivity extends AppCompatActivity {
         //onResume permet de retourner a l'ecran et d'ppliquer les préférences au démarrage et lorsqu'on redemarre activité
         super.onResume();
         loadData();
+        if(listcity.isEmpty()){
+            for(int d=0;d<slistcity.size();d++){
+                listcity.add(slistcity.get(d));
+
+            }
+        }
     }
 
 
