@@ -28,8 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".DetailWeather" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -45,10 +43,8 @@
         <activity
             android:name=".AddCitybyMapsActivity"
             android:label="@string/title_activity_add_cityb_maps"></activity>
-=======
         <activity android:name=".DetailWeather"></activity>
         <activity android:name=".TestDifferentVille"></activity>
->>>>>>> 3b75031c4a78122dfe10ff7beeb1ac505d221189
     </application>
 
 </manifest>
