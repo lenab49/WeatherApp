@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         this.i = i;
     }
 
-    private ArrayList<Weather> listcity = new ArrayList<>();
+    public ArrayList<Weather> listcity = new ArrayList<>();
     private Weather weather;
     private ArrayList<Weather> slistcity = new ArrayList<>();
     private String Ville = null;
@@ -86,7 +87,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, requestCode);
             }
         });
+        GdCit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "Click ! "+position);
+                for(int d=0;d<listcity.size();d++){
+                    Singleton singleton=Singleton.getInstance();
+                    singleton.setData(listcity.get(d));
+                }
+                Intent intent = new Intent(MainActivity.this, DetailWeather.class);
+                Bundle b = new Bundle();
+                b.putInt("key", position);
+                intent.putExtras(b); //Put your id to your next Intent
+                startActivity(intent);
+                finish();
+            }
+
+            ;
+
+        });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultcode, Intent data) {
@@ -102,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     @Override
     protected void onStop() {
@@ -215,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
             //}
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
             GdCit.setAdapter(dataCityAdapter);
+
 
         } else {
             listcity.add(getI(), weather);
