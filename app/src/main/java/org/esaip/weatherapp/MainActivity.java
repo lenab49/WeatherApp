@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TestDifferentVille.class);
+                Intent intent = new Intent(MainActivity.this, AddCitybyMapsActivity.class);
                 startActivityForResult(intent, requestCode);
             }
         });
@@ -273,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
                 startDownload(Ville);
                 Toast.makeText(this, "Ville=" + listcity.get(p).getVille(), Toast.LENGTH_SHORT).show();
             }
+
         }
     }
 
@@ -284,10 +285,10 @@ public class MainActivity extends AppCompatActivity {
         //dataCityAdapter.clear();
         GdCit.setAdapter(dataCityAdapter);
     }
-
     /*
     but : sauvegarder les données de l'application
      */
+
     private void saveData() {
         Toast.makeText(this,"size ="+listcity.size(), Toast.LENGTH_SHORT).show();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
