@@ -277,7 +277,6 @@ public class MainActivity extends AppCompatActivity {
                 startDownload(Ville);
                 Toast.makeText(this, "Ville=" + listcity.get(p).getVille(), Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -286,13 +285,13 @@ public class MainActivity extends AppCompatActivity {
         listcity.clear();
         slistcity.clear();
         DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
-        //  dataCityAdapter.clear();
+        //dataCityAdapter.clear();
         GdCit.setAdapter(dataCityAdapter);
     }
+
     /*
     but : sauvegarder les données de l'application
      */
-
     private void saveData() {
         Toast.makeText(this,"size ="+listcity.size(), Toast.LENGTH_SHORT).show();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
