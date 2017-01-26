@@ -11,16 +11,23 @@ public class Weather {
     private double currentTemp;
     private double maxTemp;
     private double minTemp;
+    private long sunset;
+    private long sunrise;
+
+
+
     private String description;
     private String ville;
     private String icon;
 
 
 
-    public Weather(double latitude, double longitude, double currentTemp,
+    public Weather(double latitude, double longitude,long sunset,long sunrise, double currentTemp,
                    double maxTemp, double minTemp, String description, String ville,String icon) {
         this.latitude = latitude;
         this.longitude = longitude;
+        this.sunset=sunset;
+        this.sunrise=sunrise;
         this.currentTemp = currentTemp;
         this.maxTemp = maxTemp;
         this.minTemp = minTemp;
@@ -35,6 +42,22 @@ public class Weather {
 
     public double getLongitude() {
         return longitude;
+    }
+
+    public long getSunrise() {
+        return sunrise;
+    }
+
+    public void setSunrise(long sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public long getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(long sunset) {
+        this.sunset = sunset;
     }
 
     public double getMaxTemp() {
