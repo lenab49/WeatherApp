@@ -58,6 +58,7 @@ public class AddCitybyMapsActivity extends FragmentActivity implements OnMapRead
                       Toast.makeText(getApplicationContext(), "la recherche est vide", Toast.LENGTH_LONG).show();
                   } else {
                       Intent result = new Intent();
+                      city = textView.getText().toString();
                       result.putExtra("city", city);
                       setResult(2, result);
                       finish();
