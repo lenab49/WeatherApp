@@ -99,9 +99,14 @@ public class MyAsyncTask extends AsyncTask<URL, Integer, String> {
             Log.e(TAG, "null result");
         } else {
             Log.d(TAG, "Download completed");
-            if(mActivity.get() != null) {
+
+            if(mActivity != null) {
                mActivity.get().responseReceived(result);
                 //Log.d(TAG,"RESULTATTTTTTT");
+            }
+            else{if(mDetail!=null){
+                mDetail.get().responseReceived(result);
+            }
             }
         }
     }

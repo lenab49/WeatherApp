@@ -1,5 +1,7 @@
 package org.esaip.weatherapp;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -132,9 +134,11 @@ public class JsonParser {
                 ville = city.getString("name");
             }
             if (root.has("list")) {
-                JSONObject list = root.getJSONObject("list");
-                minTemp = list.getDouble("temp_min");
-                maxTemp=list.getDouble("temp_max");
+                JSONArray list = root.getJSONArray("list");
+                JSONObject listObject = list.getJSONObject(1);
+
+                minTemp = listObject.getDouble("temp_min");
+                maxTemp=listObject.getDouble("temp_max");
             }
             if(root.has("weather")){
                 JSONArray weatherArray = root.getJSONArray("weather");
@@ -150,7 +154,7 @@ public class JsonParser {
             }
 
             weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp,description,ville,icon,date);
-
+            Log.e("Retour",weather.getVille());
 
         }
             catch (JSONException e){
