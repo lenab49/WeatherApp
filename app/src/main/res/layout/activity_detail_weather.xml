@@ -83,4 +83,15 @@
         android:layout_toRightOf="@+id/textTemp"
         android:layout_alignBottom="@+id/textDescription"
         android:layout_below="@+id/textTemp" />
+
+    <Button
+        android:text="Get 5 days "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textTempMin"
+        android:layout_toRightOf="@+id/textTempMin"
+        android:layout_toEndOf="@+id/textTempMin"
+        android:layout_marginLeft="83dp"
+        android:layout_marginStart="83dp"
+        android:id="@+id/GET" />
 </RelativeLayout>

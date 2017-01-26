@@ -20,11 +20,14 @@ public class MyAsyncTask extends AsyncTask<URL, Integer, String> {
     private static final String TAG = MyAsyncTask.class.getSimpleName();
 
     private WeakReference<MainActivity> mActivity;
+    private WeakReference<DetailWeather>mDetail;
 
     public MyAsyncTask(MainActivity activity) {
         this.mActivity = new WeakReference<>(activity);
     }
-
+    public MyAsyncTask(DetailWeather activity) {
+        this.mDetail = new WeakReference<>(activity);
+    }
 
    /* @Override
     protected void onPreExecute() {

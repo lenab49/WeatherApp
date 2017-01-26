@@ -24,6 +24,7 @@ public class JsonParser {
             String description = null;
             String ville=null;
             String icon=null;
+            String date=null;
 
 
             JSONObject root = new JSONObject(feed);
@@ -65,7 +66,7 @@ public class JsonParser {
 
 
 
-            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon);
+            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon,date);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -85,6 +86,7 @@ public class JsonParser {
         String description = null;
         String ville=null;
         String icon=null;
+        String date=null;
 
         try{
             latitude = jobj.getDouble("latitude");
@@ -101,11 +103,60 @@ public class JsonParser {
 
 
 
-            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon);
+            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon,date);
         }
         catch (JSONException e){
             e.printStackTrace();
         }
         return weather;
         }
+    public Weather parse5Days(String txtjson){
+        Weather weather=null;
+        try {
+            double latitude = 0.0;
+            double longitude = 0.0;
+            double currentTemp = 0.0;
+            double maxTemp = 0.0;
+            double minTemp = 0.0;
+            long sunset = 0;
+            long sunrise = 0;
+            String description = null;
+            String ville = null;
+            String icon = null;
+            String date=null;
+
+            JSONObject root = new JSONObject(txtjson);
+
+            if (root.has("city")) {
+                JSONObject city = root.getJSONObject("city");
+                ville = city.getString("name");
+            }
+            if (root.has("list")) {
+                JSONObject list = root.getJSONObject("list");
+                minTemp = list.getDouble("temp_min");
+                maxTemp=list.getDouble("temp_max");
+            }
+            if(root.has("weather")){
+                JSONArray weatherArray = root.getJSONArray("weather");
+                JSONObject weatherObject = weatherArray.getJSONObject(0);
+                icon = weatherObject.getString("icon");
+            }
+            if(root.has("list")){
+
+                JSONArray list = root.getJSONArray("list");
+                JSONObject listObject = list.getJSONObject(0);
+                date=listObject.getString("dt_text");
+
+            }
+
+            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp,description,ville,icon,date);
+
+
+        }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+            return weather;
+
+    }
 }
