@@ -229,6 +229,7 @@ public class DetailWeather extends AppCompatActivity {
 
         if (weather != null) {
           //  displayWeatherInformation(weather);
+            CreatetxtFile(response);
         }
 
         // Toast.makeText(this, "Response received.", Toast.LENGTH_SHORT).show();
@@ -255,7 +256,8 @@ public class DetailWeather extends AppCompatActivity {
         ShareActionProvider mShare=(ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         Intent shareIntent=new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT,"text to share");
+      //shareIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse("file://" + your_file_path)););
+        shareIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse("API Méteo à "+weather.getVille()+"Il fait "+weather.getCurrentTemp()+"°C"+"Le temps est"+weather.getDescription()));
         mShare.setShareIntent(shareIntent);
         return true;
     }
@@ -290,14 +292,15 @@ public class DetailWeather extends AppCompatActivity {
             mShareActionProvider.setShareIntent(shareIntent);
         }
     }
-    private void CreatetxtFile() {
+
+    private void CreatetxtFile(String content) {
         String filename = "myfile";
-        String string = "Hello world!";
+
         FileOutputStream outputStream;
 
         try {
             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(string.getBytes());
+            outputStream.write(content.getBytes());
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();

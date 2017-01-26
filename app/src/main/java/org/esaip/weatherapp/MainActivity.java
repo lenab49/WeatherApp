@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -287,6 +288,19 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+    private void CreatetxtFile(String content) {
+        String filename = "myfile";
+
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(content.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void refreshData() {
