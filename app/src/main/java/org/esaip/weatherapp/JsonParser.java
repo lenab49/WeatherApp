@@ -133,13 +133,28 @@ public class JsonParser {
                 JSONObject city = root.getJSONObject("city");
                 ville = city.getString("name");
             }
-            if (root.has("list")) {
-                JSONArray list = root.getJSONArray("list");
-                JSONObject listObject = list.getJSONObject(1);
 
-                minTemp = listObject.getDouble("temp_min");
-                maxTemp=listObject.getDouble("temp_max");
+            JSONArray lists = root.getJSONArray("list");
+            for (int i =0; i<lists.length();i++) {
+                JSONObject list = lists.getJSONObject(i);
+                if (list.has("temp")) {
+                    JSONObject temp = list.getJSONObject("temp");
+                    if (temp.has("min")) {
+                        minTemp = temp.getDouble("temp_min");
+                        Log.d(JsonParser.class.getSimpleName(),"min: "+ minTemp);
+                    }
+                    if(temp.has("max")){
+                        maxTemp = temp.getDouble("temp_max");
+                        Log.d(JsonParser.class.getSimpleName(),"max: "+ maxTemp);
+                    }
+                }
+                if(list.has("dt_text")){
+                    JSONObject listObject = list.getJSONObject("dt_text");
+                    date=listObject.getString("dt_text");
+                    Log.d(JsonParser.class.getSimpleName(),"dt_text: "+ date);
+                }
             }
+
             if(root.has("weather")){
                 JSONArray weatherArray = root.getJSONArray("weather");
                 JSONObject weatherObject = weatherArray.getJSONObject(0);

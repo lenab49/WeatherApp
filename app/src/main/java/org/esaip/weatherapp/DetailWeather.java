@@ -256,7 +256,7 @@ public class DetailWeather extends AppCompatActivity {
         ShareActionProvider mShare=(ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         Intent shareIntent=new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-      //shareIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse("file://" + your_file_path)););
+        //shareIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse("file://" + your_file_path)););
         shareIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse("API Méteo à "+weather.getVille()+"Il fait "+weather.getCurrentTemp()+"°C"+"Le temps est"+weather.getDescription()));
         mShare.setShareIntent(shareIntent);
         return true;
