@@ -14,7 +14,6 @@ public class DetailWeather extends AppCompatActivity {
         setContentView(R.layout.activity_detail_weather);
         TextView txtville=(TextView)findViewById(R.id.textDay);
 
-
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values
         if(b != null) {
