@@ -1,12 +1,17 @@
 package org.esaip.weatherapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +23,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -31,6 +37,7 @@ public class DetailWeather extends AppCompatActivity {
     private String Ville=null;
     private Weather weather;
     private MyAsyncTask Task;
+    private ShareActionProvider mShareActionProvider;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -228,6 +235,62 @@ public class DetailWeather extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_detailweather, menu);
+        MenuItem shareItem=(MenuItem)menu.findItem(R.id.menu_item_share);
+        ShareActionProvider mShare=(ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        Intent shareIntent=new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,"text to share");
+        mShare.setShareIntent(shareIntent);
+        return true;
+    }
+
+
+    /*@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Inflate menu resource file.
+        //getMenuInflater().inflate(R.menu.menu_detailweather, menu);
+        //MenuItem shareItem = menu.findItem(R.id.menu_item_share);
+        //ShareActionProvider myShareActionProvider =
+        //       (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        switch (item.getItemId()) {
+            case R.id.menu_item_share:
+
+                Intent myShareIntent = new Intent(Intent.ACTION_SEND);
+                myShareIntent.setType("text/*");
+                File f = new File("F:/ESAIP_2016-2017/Android/WeatherApp/file.txt");
+                myShareIntent.putExtra(Intent.EXTRA_TEXT, Uri.fromFile(f));
+                // myShareActionProvider.setShareIntent(myShareIntent);
+                startActivity(Intent.createChooser(myShareIntent,"Share via"));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+*/
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+    private void CreatetxtFile() {
+        String filename = "myfile";
+        String string = "Hello world!";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
     public void onStart() {
         super.onStart();
 
@@ -246,4 +309,9 @@ public class DetailWeather extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
+    public void onBackPressed() {
+        startActivity(new Intent(DetailWeather.this, MainActivity.class));
+        finish();
+    }
+
 }

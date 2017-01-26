@@ -6,6 +6,9 @@
     <string name="action_clearall">Supprimer tout</string>
     <string name="title_activity_add_cityb_maps">Carte</string>
     <string name="lang">fr</string>
+    <string name="hint_txtcity">Entrez une ville></string>
+    <string name="menu_detail_share">Partager</string>
+
 
 
 </resources>
