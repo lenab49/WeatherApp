@@ -9,5 +9,7 @@
     <string name="title_activity_add_cityb_maps">Map</string>
     <string name="lang">en</string>
     <string name="hint_txtcity">Enter a city></string>
+    <string name="txtsunset">Sun set at </string>
+    <string name="txtsunrise">Sun rise at </string>
 
 </resources>

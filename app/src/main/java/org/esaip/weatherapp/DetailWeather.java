@@ -73,16 +73,8 @@ public class DetailWeather extends AppCompatActivity {
            // Date d=new Date(Long.parseLong(Long.toString(weather.getSunrise())) * 1000L);
             //String h=Long.toString(d.getTime());
             //txtsunrise.setText(h);
-
-            long unixSeconds = weather.getSunrise();
-            Date date = new Date(unixSeconds*1000L); // *1000 is to convert seconds to milliseconds
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"); // the format of your date
-            sdf.setTimeZone(TimeZone.getTimeZone("GMT-4")); // give a timezone reference for formating (see comment at the bottom
-            String formattedDate = sdf.format(date);
-          Log.d(TAG,"Sunrise ="+formattedDate);
-            
-
-            txtsunset.setText(Long.toString(weather.getSunset()));
+            txtsunrise.setText(getString(R.string.txtsunrise)+" "+ConvertTimestamp(weather.getSunrise()));
+            txtsunset.setText(getString(R.string.txtsunset)+" "+ConvertTimestamp(weather.getSunset()));
             String icon = weather.getIcon();
             switch (icon) {
                 case "01d":
@@ -154,6 +146,16 @@ public class DetailWeather extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+    public String ConvertTimestamp(Long lgvalue){
+        long unixSeconds = lgvalue;
+        Date date = new Date(unixSeconds*1000L); // *1000 is to convert seconds to milliseconds
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm"); // the format of your date
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-4")); // give a timezone reference for formating (see comment at the bottom
+        String formattedDate = sdf.format(date);
+
+        return formattedDate;
+    }
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.

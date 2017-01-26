@@ -11,7 +11,7 @@
     tools:context="org.esaip.weatherapp.DetailWeather">
 
     <TextView
-        android:text=""
+        android:text="@string/txtsunset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textSunRise"
@@ -50,7 +50,7 @@
         android:layout_marginTop="22dp" />
 
     <TextView
-        android:text=""
+        android:text="@string/txtsunrise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textSunSet"

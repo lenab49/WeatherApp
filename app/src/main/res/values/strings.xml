@@ -8,7 +8,8 @@
     <string name="lang">fr</string>
     <string name="hint_txtcity">Entrez une ville></string>
     <string name="menu_detail_share">Partager</string>
-
+    <string name="txtsunset">Le soleil se couche a </string>
+    <string name="txtsunrise">Le soleil se lève a</string>
 
 
 </resources>
