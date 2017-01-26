@@ -40,6 +40,16 @@ public class DetailWeather extends AppCompatActivity {
     private Weather weather;
     private MyAsyncTask Task;
     private ShareActionProvider mShareActionProvider;
+    private int value;
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -60,11 +70,11 @@ public class DetailWeather extends AppCompatActivity {
         Button btn5=(Button)findViewById(R.id.GET);
 
         Bundle b = getIntent().getExtras();
-        int value = -1; // or other values
+        setValue(-1); // or other values
         if (b != null) {
-            value = b.getInt("key");
+            setValue(b.getInt("key"));
             Singleton o = Singleton.getInstance();
-            Weather weather = o.getData(value);
+            Weather weather = o.getData(getValue());
             setTitle(weather.getVille());
             Ville=(weather.getVille());
             txtdes.setText(weather.getDescription());
@@ -250,14 +260,16 @@ public class DetailWeather extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
+        Singleton sing=Singleton.getInstance();
+        Weather weather = sing.getData(getValue());
         getMenuInflater().inflate(R.menu.menu_detailweather, menu);
         MenuItem shareItem=(MenuItem)menu.findItem(R.id.menu_item_share);
         ShareActionProvider mShare=(ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         Intent shareIntent=new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        //shareIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse("file://" + your_file_path)););
-        shareIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse("API Méteo à "+weather.getVille()+"Il fait "+weather.getCurrentTemp()+"°C"+"Le temps est"+weather.getDescription()));
+      //shareIntent.putExtra(Intent.EXTRA_TEXT,Uri.parse("file://" + your_file_path)););
+        String txt="API Méteo à "+weather.getVille()+"Il fait "+Double.toString(weather.getCurrentTemp())+"°C"+"Le temps est"+weather.getDescription();
+        shareIntent.putExtra(Intent.EXTRA_TEXT,txt);
         mShare.setShareIntent(shareIntent);
         return true;
     }
