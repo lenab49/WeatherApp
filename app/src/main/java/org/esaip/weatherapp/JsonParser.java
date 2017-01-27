@@ -61,10 +61,7 @@ public class JsonParser {
 
             }
             if(root.has("name")){
-
                 ville=root.getString("name");
-
-
             }
 
 
@@ -138,6 +135,7 @@ public class JsonParser {
             }
 
             JSONArray lists = root.getJSONArray("list");
+
             for (int i =0; i<lists.length();i++) {
                 JSONObject list = lists.getJSONObject(i);
                 if (list.has("main")) {
@@ -147,9 +145,10 @@ public class JsonParser {
                         Log.d(JsonParser.class.getSimpleName(),"max: "+ maxTemp);
                     }
                 if(list.has("dt_txt")){
-                   JSONObject listObject = list.getJSONObject("dt_txt");
-                    date=listObject.getString("dt_text");
-                    Log.i("date ",date);
+
+                    date=list.getString("dt_txt");
+                    Log.d(JsonParser.class.getSimpleName(),"dt_txt: "+ date);
+
                 }
                 if(list.has("weather")){
                     JSONArray weatherArray = list.getJSONArray("weather");
@@ -160,19 +159,6 @@ public class JsonParser {
                 listparsew.add(i,weather);
 
             }
-
-
-           /* if(root.has("list")){
-
-                JSONArray list = root.getJSONArray("list");
-                JSONObject listObject = list.getJSONObject(0);
-                date=listObject.getString("dt_text");
-
-            }
-            */
-
-
-
         }
             catch (JSONException e){
                 e.printStackTrace();
