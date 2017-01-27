@@ -2,23 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_detail_weather"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.esaip.weatherapp.DetailWeather">
-
-    <TextView
-        android:text="@string/txtsunset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textSunRise"
-        android:layout_alignBaseline="@+id/textSunSet"
-        android:layout_alignBottom="@+id/textSunSet"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="Max :"
@@ -50,16 +40,6 @@
         android:layout_marginTop="22dp" />
 
     <TextView
-        android:text="@string/txtsunrise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textSunSet"
-        android:layout_marginTop="34dp"
-        android:layout_below="@+id/textTempMin"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
         android:text="Vendredi 16 Decembre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,14 +64,192 @@
         android:layout_alignBottom="@+id/textDescription"
         android:layout_below="@+id/textTemp" />
 
-    <Button
-        android:text="Get 5 days "
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textTempMin"
-        android:layout_toRightOf="@+id/textTempMin"
-        android:layout_toEndOf="@+id/textTempMin"
-        android:layout_marginLeft="83dp"
-        android:layout_marginStart="83dp"
-        android:id="@+id/GET" />
+        android:id="@+id/imageView3"
+        android:layout_alignBottom="@+id/textDescription"
+        android:layout_below="@+id/textTemp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/txtsunset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textSunRise"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textTempMax" />
+
+    <TextView
+        android:text="@string/txtsunrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textSunSet"
+        android:layout_below="@+id/textTempMin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/4thMax"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/3rdMax"
+        android:layout_alignEnd="@+id/3rdMax" />
+
+    <TextView
+        android:text="temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/3rdMax"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_alignBaseline="@+id/txt3rdDay"
+        android:layout_alignBottom="@+id/txt3rdDay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tomorMax"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_alignBaseline="@+id/Days"
+        android:layout_alignBottom="@+id/Days"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/2ndMax"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_alignBaseline="@+id/txt2ndDay"
+        android:layout_alignBottom="@+id/txt2ndDay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/3rdMin"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_alignBaseline="@+id/3rdMax"
+        android:layout_alignBottom="@+id/3rdMax"
+        android:layout_alignLeft="@+id/2ndMin"
+        android:layout_alignStart="@+id/2ndMin" />
+
+    <TextView
+        android:text="temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/4thMin"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/3rdMin"
+        android:layout_alignStart="@+id/3rdMin" />
+
+    <TextView
+        android:text="temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tomorMin"
+        android:layout_alignBottom="@+id/tomorMax"
+        android:layout_alignLeft="@+id/textSunRise"
+        android:layout_alignStart="@+id/textSunRise"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title" />
+
+    <TextView
+        android:text="temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/2ndMin"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_alignBaseline="@+id/2ndMax"
+        android:layout_alignBottom="@+id/2ndMax"
+        android:layout_alignLeft="@+id/tomorMin"
+        android:layout_alignStart="@+id/tomorMin" />
+
+    <TextView
+        android:text="4th Day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt4thDay"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="3rd Day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt3rdDay"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_marginBottom="28dp"
+        android:layout_above="@+id/txt4thDay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="2nd Day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt2ndDay"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/txt3rdDay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Tomorrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Days"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title"
+        android:layout_marginBottom="27dp"
+        android:layout_above="@+id/txt2ndDay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView18"
+        android:layout_marginBottom="30dp"
+        android:layout_above="@+id/tomorMin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:text="Min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:layout_alignBaseline="@+id/textView17"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_alignLeft="@+id/tomorMin"
+        android:layout_alignStart="@+id/tomorMin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:text="Max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView17"
+        android:layout_alignBaseline="@+id/textView18"
+        android:layout_alignBottom="@+id/textView18"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
 </RelativeLayout>
