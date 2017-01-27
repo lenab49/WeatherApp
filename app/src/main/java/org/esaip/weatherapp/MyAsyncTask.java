@@ -11,9 +11,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by Léna on 16/12/2016.
- */
+
 
 public class MyAsyncTask extends AsyncTask<URL, Integer, String> {
 
@@ -29,14 +27,6 @@ public class MyAsyncTask extends AsyncTask<URL, Integer, String> {
         this.mDetail = new WeakReference<>(activity);
     }
 
-   /* @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        if(mActivity.get() != null) {
-            //mActivity.get().setupProgressUI();
-            Log.d(TAG,"AVANT ");
-        }
-    }*/
     @Override
     protected String doInBackground(URL... urls) {
         // These two need to be declared outside the try/catch
@@ -102,7 +92,6 @@ public class MyAsyncTask extends AsyncTask<URL, Integer, String> {
 
             if(mActivity != null) {
                mActivity.get().responseReceived(result);
-                //Log.d(TAG,"RESULTATTTTTTT");
             }
             else{if(mDetail!=null){
                 mDetail.get().responseReceived(result);
