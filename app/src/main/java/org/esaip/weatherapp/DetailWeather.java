@@ -361,8 +361,7 @@ public class DetailWeather extends AppCompatActivity {
                 Refresh();
                 return true;
             case R.id.action_delete:
-                deleteCity();
-
+                //deleteCity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -409,7 +408,7 @@ public class DetailWeather extends AppCompatActivity {
         Intent result = new Intent();
         String cityDelete = weather.getVille();
         result.putExtra("delete", cityDelete);
-        setResult(3, result);
+        setResult(2, result);
         finish();
     }
 

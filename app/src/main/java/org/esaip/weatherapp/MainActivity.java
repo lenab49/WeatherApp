@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putInt("key", position);
                 intent.putExtras(b);
-                startActivity(intent);
+                startActivityForResult(intent, requestCode);
                 finish();
             }
 
