@@ -116,12 +116,21 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultcode, data);
         if (requestCode == 1) {
             String whatYouSent = data.getStringExtra("city");
-            //Toast.makeText(this,"Valeur recup="+whatYouSent,Toast.LENGTH_SHORT).show();
             setRefresh(false);
             startDownload(whatYouSent);
 
-        } else {
-            //Toast.makeText(this,"RequestCode="+requestCode,Toast.LENGTH_SHORT).show();
+        }
+        if(requestCode == 1){
+            String retour = data.getStringExtra("delete");
+            int longueur = listcity.size();
+            for (int i=0; i< listcity.size(); i++){
+                Weather villeEnCours = slistcity.get(i);
+                if (weather.getVille() == retour){
+                    slistcity.remove(i);
+                    listcity.remove(i);
+                    i = longueur;
+                }
+            }
         }
 
     }

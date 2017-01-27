@@ -143,14 +143,6 @@ public class DetailWeather extends AppCompatActivity {
                     imgicon.setImageResource(R.drawable.nmist);
                     break;
             }
-
-
-            btn5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startDownload5days(Ville);
-                }
-            });
             Log.v(TAG, "Value=" + Singleton.getInstance().getClass());
         }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -366,5 +358,16 @@ public class DetailWeather extends AppCompatActivity {
         startActivity(new Intent(DetailWeather.this, MainActivity.class));
         finish();
     }
+
+    public void deleteCity(){
+
+        Intent result = new Intent();
+        String cityDelete = weather.getVille();
+        result.putExtra("delete", cityDelete);
+        setResult(3, result);
+        finish();
+    }
+
+
 
 }
