@@ -148,10 +148,10 @@ public class JsonParser {
                         Log.d(JsonParser.class.getSimpleName(),"max: "+ maxTemp);
                     }
                 }
-                if(list.has("dt_text")){
-                    JSONObject listObject = list.getJSONObject("dt_text");
+                if(list.has("dt_txt")){
+                    JSONObject listObject = list.getJSONObject("dt_txt");
                     date=listObject.getString("dt_text");
-                    Log.d(JsonParser.class.getSimpleName(),"dt_text: "+ date);
+                    Log.d(JsonParser.class.getSimpleName(),"dt_txt: "+ date);
                 }
             }
 
