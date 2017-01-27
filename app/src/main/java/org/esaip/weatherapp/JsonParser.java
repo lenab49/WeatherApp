@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by Léna on 16/12/2016.
  */
@@ -59,10 +61,7 @@ public class JsonParser {
 
             }
             if(root.has("name")){
-
                 ville=root.getString("name");
-
-
             }
 
 
@@ -113,8 +112,9 @@ public class JsonParser {
         }
         return weather;
         }
-    public Weather parse5Days(String txtjson){
+    public ArrayList<Weather> parse5Days(String txtjson){
         Weather weather=null;
+        ArrayList<Weather> listparsew=new ArrayList<>();
         try {
             double latitude = 0.0;
             double longitude = 0.0;
@@ -139,33 +139,30 @@ public class JsonParser {
 
             for (int i =0; i<lists.length();i++) {
                 JSONObject list = lists.getJSONObject(i);
-
                 if (list.has("main")) {
-                    JSONObject main = list.getJSONObject("main");
-                        minTemp = main.getDouble("temp_min");
-                        maxTemp = main.getDouble("temp_max");
-
-                }
-                if (list.has("dt_txt")) {
-                    //JSONObject dateText = list.getJSONObject("dt_txt");
-                    date = list.getString("dt_text");
+                    JSONObject temp = list.getJSONObject("main");
+                        minTemp = temp.getDouble("temp_min");
+                        maxTemp = temp.getDouble("temp_max");
+                        Log.d(JsonParser.class.getSimpleName(),"max: "+ maxTemp);
+                    }
+                if(list.has("dt_txt")){
+                    date=list.getString("dt_txt");
+                    Log.d(JsonParser.class.getSimpleName(),"dt_txt: "+ date);
                 }
                 if(list.has("weather")){
                     JSONArray weatherArray = list.getJSONArray("weather");
-                    JSONObject weatherObject = weatherArray.getJSONObject(i);
+                    JSONObject weatherObject = weatherArray.getJSONObject(0);
                     icon = weatherObject.getString("icon");
                 }
+                weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp,description,ville,icon,date);
+                listparsew.add(i,weather);
 
             }
-
-            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp,description,ville,icon,date);
-            Log.e("Retour",weather.getVille());
-
         }
             catch (JSONException e){
                 e.printStackTrace();
             }
-            return weather;
+            return listparsew;
 
     }
 }
