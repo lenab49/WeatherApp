@@ -12,8 +12,6 @@ import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,19 +54,43 @@ public class DetailWeather extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    TextView txtdes ;
+    TextView txtminT ;
+    TextView txtmaxT ;
+    ImageView imgicon;
+    TextView txtsunset ;
+    TextView txtsunrise ;
+
+    TextView tomortxtmin;
+    TextView tomortxtmax;
+    TextView secnddaytxtmin;
+    TextView secnddaytxtmax;
+    TextView thirdtxtmin;
+    TextView thirdtxtmax;
+    TextView fourthmin;
+    TextView fourthmax;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_weather);
+        startDownload4days(Ville);
+         txtdes = (TextView) findViewById(R.id.textDescription);
+         txtminT = (TextView) findViewById(R.id.textTempMin);
+         txtmaxT = (TextView) findViewById(R.id.textTempMax);
+         imgicon = (ImageView) findViewById(R.id.imgicon);
+         txtsunset = (TextView) findViewById(R.id.textSunSet);
+         txtsunrise = (TextView) findViewById(R.id.textSunRise);
 
-        TextView txtdes = (TextView) findViewById(R.id.textDescription);
-        TextView txtminT = (TextView) findViewById(R.id.textTempMin);
-        TextView txtmaxT = (TextView) findViewById(R.id.textTempMax);
-        ImageView imgicon = (ImageView) findViewById(R.id.imgicon);
-        TextView txtsunset = (TextView) findViewById(R.id.textSunSet);
-        TextView txtsunrise = (TextView) findViewById(R.id.textSunRise);
-        Button btn5=(Button)findViewById(R.id.GET);
+         tomortxtmin=(TextView)findViewById(R.id.tomorMin);
+         tomortxtmax=(TextView)findViewById(R.id.tomorMax);
+         secnddaytxtmin=(TextView)findViewById(R.id.txt2ndMin);
+         secnddaytxtmax=(TextView)findViewById(R.id.txt2ndMax);
+         thirdtxtmin=(TextView)findViewById(R.id.txt3rdMin);
+         thirdtxtmax=(TextView)findViewById(R.id.txt3rdMax);
+         fourthmin=(TextView)findViewById(R.id.txt4thMin);
+         fourthmax=(TextView)findViewById(R.id.txt4thMax);
+
 
         Bundle b = getIntent().getExtras();
         setValue(-1); // or other values
@@ -145,17 +167,26 @@ public class DetailWeather extends AppCompatActivity {
             }
 
 
-            btn5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startDownload5days(Ville);
-                }
-            });
+
             Log.v(TAG, "Value=" + Singleton.getInstance().getClass());
         }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    public void Refresh (){
+        Log.e(TAG,"Refresh");
+        Singleton o = Singleton.getInstance();
+        Weather weather = o.getData(getValue());
+        setTitle(weather.getVille());
+        Ville=(weather.getVille());
+        txtdes.setText(weather.getDescription());
+        txtminT.setText(Double.toString(weather.getMinTemp()));
+        txtmaxT.setText(Double.toString(weather.getMaxTemp()));
+
+        startDownload4days(weather.getVille());
+
     }
     public String ConvertTimestamp(Long lgvalue){
         long unixSeconds = lgvalue;
@@ -240,13 +271,13 @@ public class DetailWeather extends AppCompatActivity {
 
         if (formatUsed.equals(JSON_FORMAT)) {
             listwparse = parseJsonData(response);
-            String ts=listwparse.get(0).getDate();
-           Log.w(TAG,"Weather="+listwparse.get(0).getMinTemp());
+           Log.w(TAG,"List parse ="+listwparse.size());
 
         }
 
-        if (weather != null) {
-           displayWeatherInformation4days(weather);
+        if (listwparse != null) {
+           displayWeatherInformation4days(listwparse);
+
             //CreatetxtFile(response);
 
         }
@@ -258,13 +289,37 @@ public class DetailWeather extends AppCompatActivity {
         mLoadingTextView.setVisibility(View.INVISIBLE);
         */
     }
-    private void displayWeatherInformation4days(Weather w) {
+    private void displayWeatherInformation4days(ArrayList<Weather> wr) {
+        int i=0;
 
+        for(i=0;i<wr.size();i++){
 
-        Log.d(TAG,"Ville "+w.getSummary());
-        Log.d(TAG,"Min_temp"+Double.toString(w.getMinTemp()));
+            if(i==0) {
+                tomortxtmin.setText(Double.toString(wr.get(i).getMinTemp()));
+                tomortxtmax.setText(Double.toString(wr.get(i).getMaxTemp()));
+            }
+            else{if(i==1){
+                    secnddaytxtmin.setText(Double.toString(wr.get(i).getMinTemp()));
+                    secnddaytxtmax.setText(Double.toString(wr.get(i).getMaxTemp()));
+                }
+                else{if(i==2){
+                    thirdtxtmin.setText(Double.toString(wr.get(i).getMinTemp()));
+                    thirdtxtmax.setText(Double.toString(wr.get(i).getMaxTemp()));
+                        }
+                        else {
+                            if (i == 3) {
+                            fourthmin.setText(Double.toString(wr.get(i).getMinTemp()));
+                            fourthmax.setText(Double.toString(wr.get(i).getMaxTemp()));
+
+                            }
+                       }
+            }
+                }
+
+            }
 
     }
+
         /*    listcity.add(getI(), weather);
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
             GdCit.setAdapter(dataCityAdapter);
@@ -297,6 +352,27 @@ public class DetailWeather extends AppCompatActivity {
         shareIntent.putExtra(Intent.EXTRA_TEXT,txt);
         mShare.setShareIntent(shareIntent);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                Refresh();
+                return true;
+            case R.id.action_delete:
+                clear();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+    private void clear(){
+
     }
 
 
