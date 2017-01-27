@@ -89,57 +89,57 @@ public class DetailWeather extends AppCompatActivity {
             String icon = weather.getIcon();
             switch (icon) {
                 case "01d":
-                    imgicon.setImageResource(R.drawable.clear_sky);
+                    imgicon.setImageResource(R.drawable.big_01d);
                     break;
                 case "01n":
-                    imgicon.setImageResource(R.drawable.nclearsky);
-                    break;
-                case "02d":
-                    imgicon.setImageResource(R.drawable.few_clouds);
+                    imgicon.setImageResource(R.drawable.big_01n);
                     break;
                 case "02n":
-                    imgicon.setImageResource(R.drawable.nfew_clouds);
+                    imgicon.setImageResource(R.drawable.big_02n);
+                    break;
+                case "02d":
+                    imgicon.setImageResource(R.drawable.big_02d);
                     break;
                 case "03d":
-                    imgicon.setImageResource(R.drawable.scatt_clouds);
+                    imgicon.setImageResource(R.drawable.big_03d);
                     break;
                 case "03n":
-                    imgicon.setImageResource(R.drawable.nscatt_clouds);
+                    imgicon.setImageResource(R.drawable.big_03n);
                     break;
-                case "04d":
+                case "big_04d":
                     imgicon.setImageResource(R.drawable.bro_clouds);
                     break;
-                case "04n":
+                case "big_04n":
                     imgicon.setImageResource(R.drawable.nbro_clouds);
                     break;
-                case "09d":
+                case "big_09d":
                     imgicon.setImageResource(R.drawable.show_rain);
                     break;
-                case "09n":
+                case "big09n":
                     imgicon.setImageResource(R.drawable.nshow_rain);
                     break;
-                case "10d":
+                case "big_10d":
                     imgicon.setImageResource(R.drawable.rain);
                     break;
-                case "10n":
+                case "big_10n":
                     imgicon.setImageResource(R.drawable.nrain);
                     break;
-                case "11d":
+                case "big_11d":
                     imgicon.setImageResource(R.drawable.thunderstorm);
                     break;
-                case "11n":
+                case "big_11n":
                     imgicon.setImageResource(R.drawable.nthunderstorm);
                     break;
-                case "13d":
+                case "big_13d":
                     imgicon.setImageResource(R.drawable.snow);
                     break;
-                case "13n":
+                case "big_13n":
                     imgicon.setImageResource(R.drawable.nsnow);
                     break;
-                case "50d":
+                case "big_50d":
                     imgicon.setImageResource(R.drawable.mist);
                     break;
-                case "50n":
+                case "big_50n":
                     imgicon.setImageResource(R.drawable.nmist);
                     break;
             }
@@ -185,33 +185,36 @@ public class DetailWeather extends AppCompatActivity {
                 .build();
     }
 
-    public void startDownload5days(String city) {
+    public void startDownload4days(String city) {
         if (isConnectionAvailable()) {
             //  GdCit.setVisibility(View.INVISIBLE);
            Task = new MyAsyncTask(this);
             //toutes les méthodes vont être appelées
-            Task.execute(buildURL5days(city));
+            Task.execute(buildURL4days(city));
         } else {
             Toast.makeText(this, "No connection available. Request canceled", Toast.LENGTH_SHORT).show();
         }
     }
-    private URL buildURL5days(String frenchCity) {
+    private URL buildURL4days(String frenchCity) {
         final String BASE_URL =
-                "http://api.openweathermap.org/data/2.5/forecast?";
+                "http://api.openweathermap.org/data/2.5/forecast/daily";
         final String QUERY_PARAM = "q";
         final String FORMAT_PARAM = "mode";
         final String UNITS_PARAM = "units";
         final String APP_ID = "APPID";
         final String LANG="lang";
+        final String COUNT="cnt";
 
         String format = formatUsed; //Either "xml" or "json"
         String units = "metric";
         String lang=getString(R.string.lang);
+        String days="4";
         Uri uri = Uri.parse(BASE_URL).buildUpon()
                 .appendQueryParameter(LANG,lang)
                 .appendQueryParameter(QUERY_PARAM, frenchCity + ",fr")
                 .appendQueryParameter(FORMAT_PARAM, format)
                 .appendQueryParameter(UNITS_PARAM, units)
+                .appendQueryParameter(COUNT,days)
                 .appendQueryParameter(APP_ID, YOUR_API_KEY)
                 .build();
 
@@ -227,7 +230,7 @@ public class DetailWeather extends AppCompatActivity {
     }
     private ArrayList<Weather> parseJsonData(String jsonFeed) {
         JsonParser parser = new JsonParser();
-        return parser.parse5Days(jsonFeed);
+        return parser.parse4Days(jsonFeed);
     }
 
     public void responseReceived(String response) {
@@ -237,12 +240,13 @@ public class DetailWeather extends AppCompatActivity {
 
         if (formatUsed.equals(JSON_FORMAT)) {
             listwparse = parseJsonData(response);
+            String ts=listwparse.get(0).getDate();
            Log.w(TAG,"Weather="+listwparse.get(0).getMinTemp());
-            Log.w(TAG,"Date Weather"+listwparse.get(0).getDate());
+
         }
 
         if (weather != null) {
-           displayWeatherInformation5days(weather);
+           displayWeatherInformation4days(weather);
             //CreatetxtFile(response);
 
         }
@@ -254,10 +258,13 @@ public class DetailWeather extends AppCompatActivity {
         mLoadingTextView.setVisibility(View.INVISIBLE);
         */
     }
-    private void displayWeatherInformation5days(Weather w) {
+    private void displayWeatherInformation4days(Weather w) {
+
 
         Log.d(TAG,"Ville "+w.getSummary());
         Log.d(TAG,"Min_temp"+Double.toString(w.getMinTemp()));
+
+    }
         /*    listcity.add(getI(), weather);
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
             GdCit.setAdapter(dataCityAdapter);
@@ -266,7 +273,7 @@ public class DetailWeather extends AppCompatActivity {
 
         //Toast.makeText(this, "after dis i=" + getI(), Toast.LENGTH_SHORT).show();
 
-    }
+
 
     private boolean isConnectionAvailable() {
         ConnectivityManager connMgr = (ConnectivityManager)

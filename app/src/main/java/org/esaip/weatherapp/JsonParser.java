@@ -28,7 +28,7 @@ public class JsonParser {
             String description = null;
             String ville=null;
             String icon=null;
-            String date=null;
+
 
 
             JSONObject root = new JSONObject(feed);
@@ -67,7 +67,7 @@ public class JsonParser {
 
 
 
-            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon,date);
+            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -87,7 +87,6 @@ public class JsonParser {
         String description = null;
         String ville=null;
         String icon=null;
-        String date=null;
 
         try{
             latitude = jobj.getDouble("latitude");
@@ -104,14 +103,14 @@ public class JsonParser {
 
 
 
-            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon,date);
+            weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp, description,ville,icon);
         }
         catch (JSONException e){
             e.printStackTrace();
         }
         return weather;
         }
-    public ArrayList<Weather> parse5Days(String txtjson){
+    public ArrayList<Weather> parse4Days(String txtjson){
         Weather weather=null;
         ArrayList<Weather> listparsew=new ArrayList<>();
         try {
@@ -125,7 +124,7 @@ public class JsonParser {
             String description = null;
             String ville = null;
             String icon = null;
-            String date=null;
+
 
             JSONObject root = new JSONObject(txtjson);
 
@@ -144,18 +143,13 @@ public class JsonParser {
                         maxTemp = temp.getDouble("temp_max");
                         Log.d(JsonParser.class.getSimpleName(),"max: "+ maxTemp);
                     }
-                if(list.has("dt_txt")){
 
-                    date=list.getString("dt_txt");
-                    Log.d(JsonParser.class.getSimpleName(),"dt_txt: "+ date);
-
-                }
                 if(list.has("weather")){
                     JSONArray weatherArray = list.getJSONArray("weather");
                     JSONObject weatherObject = weatherArray.getJSONObject(0);
                     icon = weatherObject.getString("icon");
                 }
-                weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp,description,ville,icon,date);
+                weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp,description,ville,icon);
                 listparsew.add(i,weather);
 
             }
