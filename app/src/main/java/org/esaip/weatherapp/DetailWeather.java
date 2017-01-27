@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -167,6 +168,7 @@ public class DetailWeather extends AppCompatActivity {
     }
 
 
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -223,23 +225,26 @@ public class DetailWeather extends AppCompatActivity {
         }
         return url;
     }
-    private Weather parseJsonData(String jsonFeed) {
+    private ArrayList<Weather> parseJsonData(String jsonFeed) {
         JsonParser parser = new JsonParser();
         return parser.parse5Days(jsonFeed);
     }
 
     public void responseReceived(String response) {
         Log.i(TAG, "Response: " + response);
+        ArrayList<Weather> listwparse=new ArrayList<>();
+        //weather = null;
 
-        weather = null;
         if (formatUsed.equals(JSON_FORMAT)) {
-            weather = parseJsonData(response);
-            Log.w(TAG,"Weather="+weather.getVille());
+            listwparse = parseJsonData(response);
+           Log.w(TAG,"Weather="+listwparse.get(0).getMinTemp());
+            Log.w(TAG,"Date Weather"+listwparse.get(0).getDate());
         }
 
         if (weather != null) {
-          //  displayWeatherInformation(weather);
-            CreatetxtFile(response);
+           displayWeatherInformation5days(weather);
+            //CreatetxtFile(response);
+
         }
 
         // Toast.makeText(this, "Response received.", Toast.LENGTH_SHORT).show();
@@ -248,6 +253,19 @@ public class DetailWeather extends AppCompatActivity {
         mProgressBar.setVisibility(View.INVISIBLE);
         mLoadingTextView.setVisibility(View.INVISIBLE);
         */
+    }
+    private void displayWeatherInformation5days(Weather w) {
+
+        Log.d(TAG,"Ville "+w.getSummary());
+        Log.d(TAG,"Min_temp"+Double.toString(w.getMinTemp()));
+        /*    listcity.add(getI(), weather);
+            DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
+            GdCit.setAdapter(dataCityAdapter);
+            setI(getI() + 1);
+        */
+
+        //Toast.makeText(this, "after dis i=" + getI(), Toast.LENGTH_SHORT).show();
+
     }
 
     private boolean isConnectionAvailable() {
