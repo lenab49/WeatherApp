@@ -12,5 +12,6 @@
     <string name="hint_txtcity">Enter a city></string>
     <string name="txtsunset">Sun set at </string>
     <string name="txtsunrise">Sun rise at </string>
+    <string name="mapinstruction">Press longer to place a marker"</string>
 
 </resources>

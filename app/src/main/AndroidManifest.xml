@@ -46,7 +46,6 @@
             android:name=".AddCitybyMapsActivity"
             android:label="@string/title_activity_add_cityb_maps" />
         <activity android:name=".DetailWeather" />
-        <activity android:name=".TestDifferentVille" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

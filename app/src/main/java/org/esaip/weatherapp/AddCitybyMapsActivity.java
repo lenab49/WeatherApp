@@ -8,7 +8,6 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,7 +54,7 @@ public class AddCitybyMapsActivity extends FragmentActivity implements OnMapRead
         button.setOnClickListener(new View.OnClickListener() {
               public void onClick(View v) {
                   if (textView.getText().length() < 1) {
-                      Toast.makeText(getApplicationContext(), "la recherche est vide", Toast.LENGTH_LONG).show();
+
                   } else {
                       Intent result = new Intent();
                       city=textView.getText().toString();
@@ -105,7 +104,7 @@ public class AddCitybyMapsActivity extends FragmentActivity implements OnMapRead
 
     @Override
     public void onMapClick(LatLng point){
-        Toast.makeText(this, "press longer to place a marker", Toast.LENGTH_LONG).show();
+        Toast.makeText(this,getText(R.string.mapinstruction), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -125,8 +124,6 @@ public class AddCitybyMapsActivity extends FragmentActivity implements OnMapRead
     public void getCityByLatLng(LatLng position){
         double lat = position.latitude;
         double lng = position.longitude;
-        //String city = "vide";
-
         Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
         try
         {
@@ -134,14 +131,13 @@ public class AddCitybyMapsActivity extends FragmentActivity implements OnMapRead
             if (addresses.size() > 0)
             {
                 city = (addresses.get(0).getLocality());
-                Log.d("city", ""+city);
+
             }
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
-        //Toast.makeText(this, city, Toast.LENGTH_LONG).show();
     }
     @Override
     public void onBackPressed() {

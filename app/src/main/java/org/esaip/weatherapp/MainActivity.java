@@ -17,14 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         GdCit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "Click ! "+position);
                 for(int d=0;d<listcity.size();d++){
                     Singleton singleton=Singleton.getInstance();
                     singleton.setData(listcity.get(d));
@@ -99,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, DetailWeather.class);
                 Bundle b = new Bundle();
                 b.putInt("key", position);
-                intent.putExtras(b); //Put your id to your next Intent
+                intent.putExtras(b);
                 startActivity(intent);
                 finish();
             }
@@ -118,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
             String whatYouSent = data.getStringExtra("city");
             setRefresh(false);
             startDownload(whatYouSent);
-
         }
         if(requestCode == 2){
             String retour = data.getStringExtra("delete");
@@ -132,14 +128,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
 
     @Override
     protected void onStop() {
         super.onStop();
-        //Toast.makeText(this,"SAVING ...",Toast.LENGTH_SHORT).show();
         saveData();
 
     }
@@ -147,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         //onResume permet de retourner a l'ecran et d'ppliquer les préférences au démarrage et lorsqu'on redemarre activité
+        //on va retourner les données sauvegardées
         super.onResume();
         loadData();
         if(listcity.isEmpty()){
@@ -191,12 +186,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void startDownload(String city) {
         if (isConnectionAvailable()) {
-            //  GdCit.setVisibility(View.INVISIBLE);
             Task = new MyAsyncTask(this);
-            //toutes les méthodes vont être appelées
             Task.execute(buildURL(city));
         } else {
-            //Toast.makeText(this, "No connection available. Request canceled", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -210,54 +202,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void responseReceived(String response) {
         Log.i(TAG, "Response: " + response);
-
         weather = null;
         if (formatUsed.equals(JSON_FORMAT)) {
             weather = parseJsonData(response);
         }
-
         if (weather != null) {
             displayWeatherInformation(weather);
         }
-
-        // Toast.makeText(this, "Response received.", Toast.LENGTH_SHORT).show();
         Log.e(TAG, "Response received");
-       /* mStartDownloadButton.setEnabled(true);
-        mProgressBar.setVisibility(View.INVISIBLE);
-        mLoadingTextView.setVisibility(View.INVISIBLE);
-        */
     }
 
     private void displayWeatherInformation(Weather weather) {
-        //GdCit.setText(weather.getSummary());
-        //GdCit.set
-        //Toast.makeText(this,"Le resultat "+weather.getSummary(),Toast.LENGTH_SHORT).show();
-        // listcity.add(i, weather);
 
-        //Toast.makeText(this,"bool"+isRefresh(),Toast.LENGTH_SHORT).show();
-
-        //for(p=0;p<listcity.size();p++) {
-        //Toast.makeText(this, "Ville=" + listcity.get(p).getVille(), Toast.LENGTH_SHORT).show();
-        //}
         if (isRefresh() == true) {
-            // for (int d = 0; d <= getI(); d++) {
-
             listcity.set(getI(), weather);
-            //  Toast.makeText(this, "d=" + d, Toast.LENGTH_SHORT).show();
-            //}
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
             GdCit.setAdapter(dataCityAdapter);
-
-
         } else {
             listcity.add(getI(), weather);
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
             GdCit.setAdapter(dataCityAdapter);
             setI(getI() + 1);
-
         }
-        Toast.makeText(this, "after dis i=" + getI(), Toast.LENGTH_SHORT).show();
-
     }
 
     private Weather parseJsonData(String jsonFeed) {
@@ -271,24 +237,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
             case R.id.action_refresh:
                 refreshData();
-                Toast.makeText(this, "SAving i= " + i, Toast.LENGTH_SHORT).show();
-
                 return true;
             case R.id.action_clearall:
                 clear();
@@ -298,30 +257,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    private void CreatetxtFile(String content) {
-        String filename = "myfile";
-
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(content.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void refreshData() {
         setRefresh(true);
 
         if (listcity.size() != 0) {
-            //Toast.makeText(this,"size list="+listcity.size(),Toast.LENGTH_SHORT).show();
             for (p = 0; p < listcity.size(); p++) {
                 setI(p);
                 String Ville = (listcity.get(p)).getVille();
                 startDownload(Ville);
-                Toast.makeText(this, "Ville=" + listcity.get(p).getVille(), Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -332,15 +275,11 @@ public class MainActivity extends AppCompatActivity {
         listcity.clear();
         slistcity.clear();
         DataCityAdapter dataCityAdapter = new DataCityAdapter(this, listcity);
-        //dataCityAdapter.clear();
         GdCit.setAdapter(dataCityAdapter);
     }
-    /*
-    but : sauvegarder les données de l'application
-     */
+   // sauvegarder les données de l'application
 
     private void saveData() {
-        Toast.makeText(this,"size ="+listcity.size(), Toast.LENGTH_SHORT).show();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sp.edit();
         Gson gson = new Gson();
@@ -350,35 +289,26 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("index", i);
         editor.commit();
     }
-
+    //Chargement des données sauvegardées
     private void loadData() {
-
         Weather weather = null;
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
         String json = defaultSharedPref.getString("MyObject", null);
-        //  Log.e(TAG,"JSON ="+json);
         try {
 
             JSONArray obj = new JSONArray(json);
             int taille = obj.length();
             for (int m = 0; m < taille; m++) {
-
                 weather = parseSaveJsonData(obj.getJSONObject(m));
                 slistcity.add(weather);
-                Log.d("Ville", weather.getVille());
-
             }
             DataCityAdapter dataCityAdapter = new DataCityAdapter(this, slistcity);
             GdCit.setAdapter(dataCityAdapter);
-
-            Log.d(TAG, "Works" + slistcity.size());
-
         } catch (Exception e) {
             Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
         }
         setI(defaultSharedPref.getInt("index", 0));
-        Log.d(TAG,"Valeur i= "+getI());
 
     }
 
