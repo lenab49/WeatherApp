@@ -92,20 +92,20 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="temp"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/4thMax"
+        android:id="@+id/txt4thMax"
         android:textAppearance="@style/TextAppearance.CastMiniController.Title"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/3rdMax"
-        android:layout_alignEnd="@+id/3rdMax" />
+        android:layout_alignRight="@+id/txt3rdMax"
+        android:layout_alignEnd="@+id/txt3rdMax" />
 
     <TextView
-        android:text="temp"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/3rdMax"
+        android:id="@+id/txt3rdMax"
         android:textAppearance="@style/TextAppearance.CastMiniController.Title"
         android:layout_alignBaseline="@+id/txt3rdDay"
         android:layout_alignBottom="@+id/txt3rdDay"
@@ -113,7 +113,7 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="temp"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tomorMax"
@@ -124,10 +124,10 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="temp"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/2ndMax"
+        android:id="@+id/txt2ndMax"
         android:textAppearance="@style/TextAppearance.CastMiniController.Title"
         android:layout_alignBaseline="@+id/txt2ndDay"
         android:layout_alignBottom="@+id/txt2ndDay"
@@ -135,28 +135,28 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="temp"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/3rdMin"
+        android:id="@+id/txt3rdMin"
         android:textAppearance="@style/TextAppearance.CastMiniController.Title"
-        android:layout_alignBaseline="@+id/3rdMax"
-        android:layout_alignBottom="@+id/3rdMax"
-        android:layout_alignLeft="@+id/2ndMin"
-        android:layout_alignStart="@+id/2ndMin" />
+        android:layout_alignBaseline="@+id/txt3rdMax"
+        android:layout_alignBottom="@+id/txt3rdMax"
+        android:layout_alignLeft="@+id/txt2ndMin"
+        android:layout_alignStart="@+id/txt2ndMin" />
 
     <TextView
-        android:text="temp"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/4thMin"
+        android:id="@+id/txt4thMin"
         android:textAppearance="@style/TextAppearance.CastMiniController.Title"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/3rdMin"
-        android:layout_alignStart="@+id/3rdMin" />
+        android:layout_alignLeft="@+id/txt3rdMin"
+        android:layout_alignStart="@+id/txt3rdMin" />
 
     <TextView
-        android:text="temp"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tomorMin"
@@ -166,13 +166,13 @@
         android:textAppearance="@style/TextAppearance.CastMiniController.Title" />
 
     <TextView
-        android:text="temp"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/2ndMin"
+        android:id="@+id/txt2ndMin"
         android:textAppearance="@style/TextAppearance.CastMiniController.Title"
-        android:layout_alignBaseline="@+id/2ndMax"
-        android:layout_alignBottom="@+id/2ndMax"
+        android:layout_alignBaseline="@+id/txt2ndMax"
+        android:layout_alignBottom="@+id/txt2ndMax"
         android:layout_alignLeft="@+id/tomorMin"
         android:layout_alignStart="@+id/tomorMin" />
 
