@@ -4,12 +4,15 @@
     <string name="idG">Grcity</string>
     <string name="action_refresh">Rafraichir</string>
     <string name="action_clearall">Supprimer tout</string>
+    <string name="action_delete">Supprimer</string>
     <string name="title_activity_add_cityb_maps">Carte</string>
     <string name="lang">fr</string>
     <string name="hint_txtcity">Entrez une ville></string>
     <string name="menu_detail_share">Partager</string>
     <string name="txtsunset">Le soleil se couche a </string>
     <string name="txtsunrise">Le soleil se lève a</string>
+
+
 
 
 </resources>

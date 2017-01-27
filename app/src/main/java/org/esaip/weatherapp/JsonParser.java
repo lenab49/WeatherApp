@@ -137,10 +137,10 @@ public class JsonParser {
 
             for (int i =0; i<lists.length();i++) {
                 JSONObject list = lists.getJSONObject(i);
-                if (list.has("main")) {
-                    JSONObject temp = list.getJSONObject("main");
-                        minTemp = temp.getDouble("temp_min");
-                        maxTemp = temp.getDouble("temp_max");
+                if (list.has("temp")) {
+                    JSONObject temp = list.getJSONObject("temp");
+                        minTemp = temp.getDouble("min");
+                        maxTemp = temp.getDouble("max");
                         Log.d(JsonParser.class.getSimpleName(),"max: "+ maxTemp);
                     }
 
@@ -149,6 +149,7 @@ public class JsonParser {
                     JSONObject weatherObject = weatherArray.getJSONObject(0);
                     icon = weatherObject.getString("icon");
                 }
+                Log.d("Parse","="+minTemp);
                 weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp,description,ville,icon);
                 listparsew.add(i,weather);
 

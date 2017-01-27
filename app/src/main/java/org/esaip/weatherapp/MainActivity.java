@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             startDownload(whatYouSent);
 
         }
-        if(requestCode == 1){
+        if(requestCode == 2){
             String retour = data.getStringExtra("delete");
             int longueur = listcity.size();
             for (int i=0; i< listcity.size(); i++){
