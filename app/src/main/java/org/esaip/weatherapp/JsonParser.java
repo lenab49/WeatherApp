@@ -1,7 +1,5 @@
 package org.esaip.weatherapp;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -141,7 +139,6 @@ public class JsonParser {
                     JSONObject temp = list.getJSONObject("temp");
                         minTemp = temp.getDouble("min");
                         maxTemp = temp.getDouble("max");
-                        Log.d(JsonParser.class.getSimpleName(),"max: "+ maxTemp);
                     }
 
                 if(list.has("weather")){
@@ -149,7 +146,6 @@ public class JsonParser {
                     JSONObject weatherObject = weatherArray.getJSONObject(0);
                     icon = weatherObject.getString("icon");
                 }
-                Log.d("Parse","="+minTemp);
                 weather = new Weather(latitude, longitude,sunset,sunrise, currentTemp, maxTemp, minTemp,description,ville,icon);
                 listparsew.add(i,weather);
 

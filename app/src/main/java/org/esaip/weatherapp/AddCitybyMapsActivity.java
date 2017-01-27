@@ -8,7 +8,6 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -134,7 +133,7 @@ public class AddCitybyMapsActivity extends FragmentActivity implements OnMapRead
             if (addresses.size() > 0)
             {
                 city = (addresses.get(0).getLocality());
-                Log.d("city", ""+city);
+               
             }
         }
         catch(Exception e)

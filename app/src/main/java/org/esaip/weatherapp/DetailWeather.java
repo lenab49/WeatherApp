@@ -21,7 +21,6 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -101,14 +100,15 @@ public class DetailWeather extends AppCompatActivity {
             setTitle(weather.getVille());
             Ville=(weather.getVille());
             txtdes.setText(weather.getDescription());
-            txtminT.setText(Double.toString(weather.getMinTemp()));
-            txtmaxT.setText(Double.toString(weather.getMaxTemp()));
+            txtminT.setText("Min T°"+Double.toString(weather.getMinTemp()));
+            txtmaxT.setText("Max T°"+Double.toString(weather.getMaxTemp()));
            // Date d=new Date(Long.parseLong(Long.toString(weather.getSunrise())) * 1000L);
             //String h=Long.toString(d.getTime());
             //txtsunrise.setText(h);
             txtsunrise.setText(getString(R.string.txtsunrise)+" "+ConvertTimestamp(weather.getSunrise()));
             txtsunset.setText(getString(R.string.txtsunset)+" "+ConvertTimestamp(weather.getSunset()));
             String icon = weather.getIcon();
+            Log.e(TAG,"icon est "+icon);
             switch (icon) {
                 case "01d":
                     imgicon.setImageResource(R.drawable.big_01d);
@@ -128,47 +128,43 @@ public class DetailWeather extends AppCompatActivity {
                 case "03n":
                     imgicon.setImageResource(R.drawable.big_03n);
                     break;
-                case "big_04d":
-                    imgicon.setImageResource(R.drawable.bro_clouds);
+                case "04d":
+                    imgicon.setImageResource(R.drawable.big_04d);
                     break;
-                case "big_04n":
-                    imgicon.setImageResource(R.drawable.nbro_clouds);
+                case "04n":
+                    imgicon.setImageResource(R.drawable.big_04n);
                     break;
-                case "big_09d":
-                    imgicon.setImageResource(R.drawable.show_rain);
+                case "09d":
+                    imgicon.setImageResource(R.drawable.big_09d);
                     break;
-                case "big09n":
-                    imgicon.setImageResource(R.drawable.nshow_rain);
+                case "09n":
+                    imgicon.setImageResource(R.drawable.big_09n);
                     break;
-                case "big_10d":
-                    imgicon.setImageResource(R.drawable.rain);
+                case "10d":
+                    imgicon.setImageResource(R.drawable.big_10d);
                     break;
-                case "big_10n":
-                    imgicon.setImageResource(R.drawable.nrain);
+                case "10n":
+                    imgicon.setImageResource(R.drawable.big_10n);
                     break;
-                case "big_11d":
-                    imgicon.setImageResource(R.drawable.thunderstorm);
+                case "11d":
+                    imgicon.setImageResource(R.drawable.big_11d);
                     break;
-                case "big_11n":
-                    imgicon.setImageResource(R.drawable.nthunderstorm);
+                case "11n":
+                    imgicon.setImageResource(R.drawable.big_11n);
                     break;
-                case "big_13d":
-                    imgicon.setImageResource(R.drawable.snow);
+                case "13d":
+                    imgicon.setImageResource(R.drawable.big_13d);
                     break;
-                case "big_13n":
-                    imgicon.setImageResource(R.drawable.nsnow);
+                case "13n":
+                    imgicon.setImageResource(R.drawable.big_13n);
                     break;
-                case "big_50d":
-                    imgicon.setImageResource(R.drawable.mist);
+                case "50d":
+                    imgicon.setImageResource(R.drawable.big__50d);
                     break;
-                case "big_50n":
-                    imgicon.setImageResource(R.drawable.nmist);
+                case "50n":
+                    imgicon.setImageResource(R.drawable.big__50n);
                     break;
             }
-
-
-
-            Log.v(TAG, "Value=" + Singleton.getInstance().getClass());
         }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -176,7 +172,7 @@ public class DetailWeather extends AppCompatActivity {
     }
 
     public void Refresh (){
-        Log.e(TAG,"Refresh");
+
         Singleton o = Singleton.getInstance();
         Weather weather = o.getData(getValue());
         setTitle(weather.getVille());
@@ -361,44 +357,21 @@ public class DetailWeather extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_refresh:
+                Log.e(TAG,"Refresh");
                 Refresh();
                 return true;
             case R.id.action_delete:
-                clear();
+                //clear();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
     }
-    private void clear(){
-
-    }
 
 
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Inflate menu resource file.
-        //getMenuInflater().inflate(R.menu.menu_detailweather, menu);
-        //MenuItem shareItem = menu.findItem(R.id.menu_item_share);
-        //ShareActionProvider myShareActionProvider =
-        //       (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
-        switch (item.getItemId()) {
-            case R.id.menu_item_share:
 
-                Intent myShareIntent = new Intent(Intent.ACTION_SEND);
-                myShareIntent.setType("text/*");
-                File f = new File("F:/ESAIP_2016-2017/Android/WeatherApp/file.txt");
-                myShareIntent.putExtra(Intent.EXTRA_TEXT, Uri.fromFile(f));
-                // myShareActionProvider.setShareIntent(myShareIntent);
-                startActivity(Intent.createChooser(myShareIntent,"Share via"));
-                return true;
 
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-*/
     // Call to update the share intent
     private void setShareIntent(Intent shareIntent) {
         if (mShareActionProvider != null) {
@@ -406,19 +379,7 @@ public class DetailWeather extends AppCompatActivity {
         }
     }
 
-    private void CreatetxtFile(String content) {
-        String filename = "myfile";
 
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(content.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     @Override
     public void onStart() {
         super.onStart();
