@@ -19,12 +19,11 @@ public class Weather {
 
 
 
-    private String date;
 
 
 
     public Weather(double latitude, double longitude,long sunset,long sunrise, double currentTemp,
-                   double maxTemp, double minTemp, String description, String ville,String icon,String date) {
+                   double maxTemp, double minTemp, String description, String ville,String icon) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.sunset=sunset;
@@ -35,7 +34,7 @@ public class Weather {
         this.description = description;
         this.ville=ville;
         this.icon=icon;
-        this.date=date;
+
     }
 
     public double getLatitude() {
@@ -97,13 +96,6 @@ public class Weather {
         this.icon = icon;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
     public String getSummary() {
         String info = "Weather Info:\nCurrent temp: " + currentTemp +
                 "°C\nCurrent weather: " + description;
