@@ -235,6 +235,7 @@ public class DetailWeather extends AppCompatActivity {
         if (formatUsed.equals(JSON_FORMAT)) {
             weather = parseJsonData(response);
             Log.w(TAG,"Weather="+weather.getVille());
+            Log.w(TAG,"Weather="+weather.getMinTemp());
         }
 
         if (weather != null) {

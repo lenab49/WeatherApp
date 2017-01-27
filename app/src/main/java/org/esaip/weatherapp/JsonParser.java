@@ -78,6 +78,7 @@ public class JsonParser {
     }
     public Weather SaveWeather(JSONObject jobj){
         Weather weather=null;
+
         double latitude = 0.0;
         double longitude = 0.0;
         double currentTemp = 0.0;
@@ -135,36 +136,25 @@ public class JsonParser {
             }
 
             JSONArray lists = root.getJSONArray("list");
+
             for (int i =0; i<lists.length();i++) {
                 JSONObject list = lists.getJSONObject(i);
-                if (list.has("temp")) {
-                    JSONObject temp = list.getJSONObject("temp");
-                    if (temp.has("min")) {
-                        minTemp = temp.getDouble("temp_min");
-                        Log.d(JsonParser.class.getSimpleName(),"min: "+ minTemp);
-                    }
-                    if(temp.has("max")){
-                        maxTemp = temp.getDouble("temp_max");
-                        Log.d(JsonParser.class.getSimpleName(),"max: "+ maxTemp);
-                    }
-                }
-                if(list.has("dt_txt")){
-                    JSONObject listObject = list.getJSONObject("dt_txt");
-                    date=listObject.getString("dt_text");
-                    Log.d(JsonParser.class.getSimpleName(),"dt_txt: "+ date);
-                }
-            }
 
-            if(root.has("weather")){
-                JSONArray weatherArray = root.getJSONArray("weather");
-                JSONObject weatherObject = weatherArray.getJSONObject(0);
-                icon = weatherObject.getString("icon");
-            }
-            if(root.has("list")){
+                if (list.has("main")) {
+                    JSONObject main = list.getJSONObject("main");
+                        minTemp = main.getDouble("temp_min");
+                        maxTemp = main.getDouble("temp_max");
 
-                JSONArray list = root.getJSONArray("list");
-                JSONObject listObject = list.getJSONObject(0);
-                date=listObject.getString("dt_text");
+                }
+                if (list.has("dt_txt")) {
+                    //JSONObject dateText = list.getJSONObject("dt_txt");
+                    date = list.getString("dt_text");
+                }
+                if(list.has("weather")){
+                    JSONArray weatherArray = list.getJSONArray("weather");
+                    JSONObject weatherObject = weatherArray.getJSONObject(i);
+                    icon = weatherObject.getString("icon");
+                }
 
             }
 
